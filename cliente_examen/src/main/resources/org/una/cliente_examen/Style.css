@@ -1,0 +1,98 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27 oct. 2020, 13:28:42
+    Author     : Luis
+*/
+.jfx-buttonStandard {
+    -fx-background-color: trasparent;
+    -fx-background-radius: 5 5 5 5;
+    -fx-opacity: 1;
+    -fx-alignment: CENTER;
+    -fx-pref-width: 75px; 
+    -fx-pref-height: 30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}
+
+.jfx-buttonStandard2 {
+    -fx-background-color: #030393;
+    -fx-text-fill: WHITE;
+    -fx-background-radius: 10 10 10 10;
+    -fx-opacity: 2;
+    -fx-alignment: CENTER;
+
+}
+
+
+.VBoxTarjeta{
+    -fx-background-color: WHITE;
+    -fx-effect:  dropshadow(three-pass-box, rgba(0,0,0,0.3), 45, 0, 0, 0);
+}
+
+.VBoxTarjeta2{
+    -fx-background-color: WHITE;
+    -fx-background-radius: 10 10 10 10;
+    -fx-effect:  dropshadow(three-pass-box, rgba(3,0,0,0.3), 35, 0, 0, 0);
+
+}
+.anchorLujo{
+    -fx-background-color: #447604;
+    -fx-effect:  dropshadow(three-pass-box, rgba(3,0,0,0.3), 35, 0, 0, 0);
+
+}
+.anchorLujo2{
+    -fx-background-color: #F6AA1C;
+    -fx-effect:  dropshadow(three-pass-box, rgba(3,0,0,0.3), 35, 0, 0, 0);
+
+}
+.anchorLogin{
+    -fx-background-color: #090909;
+    -fx-effect:  dropshadow(three-pass-box, rgba(3,0,0,0.3), 35, 0, 0, 0);
+
+}
+.anchorPadre{
+    -fx-background-color: linear-gradient(to left, #040446, #02020C);
+    -fx-effect:  dropshadow(three-pass-box, rgba(3,0,0,0.3), 35, 0, 0, 0);
+
+}
+.vboxMenu{
+    -fx-background-color: #CDD1C4;
+    -fx-effect:  dropshadow(three-pass-box, rgba(3,0,0,0.3), 35, 0, 0, 0);
+
+}
+
+.vBoxGeneral{
+    -fx-spacing: 30;
+}
+.table-view {
+
+    -fx-table-header-border-color: transparent;
+    -fx-table-cell-border-color: -fx-box-border;
+    fx-background-color: transparent;
+}
+.menu-bar-btns:hover .menu-bar-btns-icon{
+    -fx-fill: #181F1C;
+}
+.menu-bar-btns:hover{
+    -fx-background-color: #0099ff;
+}
+.Button:hover{
+    -fx-background-color: #495F41;
+    -fx-background-radius: 0px;
+    -fx-text-fill: #b8b1b1;
+    -fx-border-color: rgb(22,169,250);
+    -fx-border-width: 0px 0px 0px 3px;
+}
+.vboxizq{
+    -fx-background-color: #090909;
+
+    -fx-effect:  dropshadow(three-pass-box, rgba(3,0,0,0.3), 35, 0, 0, 0);
+}
+.anchorPadre2{
+    -fx-background-color: #fff;
+}
+
+
