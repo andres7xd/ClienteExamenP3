@@ -1,16 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="anchorPadre" stylesheets="@Style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.una.cliente_examen.controllers.ControlCobrosController">
+<AnchorPane id="AnchorPane" prefHeight="521.0" prefWidth="876.0" styleClass="anchorPadre" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.cliente_examen.controllers.ControlCobrosController">
    <children>
-      <BorderPane layoutX="-2.0" prefHeight="401.0" prefWidth="608.0">
+      <BorderPane layoutX="-2.0" prefHeight="521.0" prefWidth="882.0">
          <left>
-            <TreeView fx:id="tviewControlCobros" opacity="0.39" prefHeight="402.0" prefWidth="178.0" BorderPane.alignment="CENTER" />
+            <TreeView fx:id="tviewControlCobros" opacity="0.71" prefHeight="402.0" prefWidth="178.0" stylesheets="@Style.css" BorderPane.alignment="CENTER" />
          </left>
+         <right>
+            <Button mnemonicParsing="false" styleClass="jfx-buttonStandard2" stylesheets="@Style.css" text="Atras" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets right="50.0" top="300.0" />
+               </BorderPane.margin>
+            </Button>
+         </right>
+         <top>
+            <Label text="Generacion de cobros" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="CENTER" />
+         </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Informacion de membresia">
+                     <VBox.margin>
+                        <Insets left="50.0" top="30.0" />
+                     </VBox.margin>
+                  </Text>
+                  <HBox prefHeight="58.0" prefWidth="336.0">
+                     <children>
+                        <Label text="Periosidad: " textFill="WHITE">
+                           <HBox.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField>
+                           <HBox.margin>
+                              <Insets top="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="58.0" prefWidth="336.0">
+                     <children>
+                        <Label text="Monto: " textFill="WHITE">
+                           <HBox.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField>
+                           <HBox.margin>
+                              <Insets left="20.0" top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="58.0" prefWidth="336.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="74.0" text="Descripcion: " textFill="WHITE">
+                           <HBox.margin>
+                              <Insets left="20.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextArea prefHeight="58.0" prefWidth="302.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="58.0" prefWidth="336.0">
+                     <children>
+                        <Label text="Tipo de servicio" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets left="20.0" top="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ComboBox prefWidth="150.0">
+                           <HBox.margin>
+                              <Insets left="10.0" top="20.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>

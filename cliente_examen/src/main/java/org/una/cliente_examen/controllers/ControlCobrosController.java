@@ -37,6 +37,12 @@ public class ControlCobrosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        cargarTreeView();
+        
+            
+    } 
+    
+    public void cargarTreeView(){
         try {
             clientelist = ClienteService.getInstance().getAll();
             System.out.println(clientelist.toString());
@@ -51,13 +57,16 @@ public class ControlCobrosController implements Initializable {
         
         
         
-        // TODO
-        TreeItem<String> root = new TreeItem<>("Clientes");
-//           root.setGraphic(imgroot);
-            root.setExpanded(true);
+       
+        
+        TreeItem<String> root = new TreeItem<>("Clientes con membresia");
+//          root.setGraphic(imgroot);
+            root.setExpanded(false); 
             tviewControlCobros.setRoot(root);
-            TreeItem<String> item = new TreeItem<>("Cliente1");
+            for (int i = 0; i < clientelist.size(); i++) {
+            TreeItem<String> item = new TreeItem<>(clientelist.get(i).getNombre());
                 root.getChildren().add(item);
-    }    
+        }
+    }
     
 }
