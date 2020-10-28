@@ -8,4 +8,7 @@ module org.una.cliente_examen {
     opens org.una.cliente_examen.controllers to javafx.fxml;
     exports org.una.cliente_examen;
     exports org.una.cliente_examen.controllers;
+    opens org.una.cliente_examen.dto;
+    exports org.una.cliente_examen.dto;
+  
 }
