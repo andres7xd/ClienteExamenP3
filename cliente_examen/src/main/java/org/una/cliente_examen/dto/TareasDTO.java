@@ -15,6 +15,7 @@ import org.una.cliente_examen.dto.ProyectosDTO;
 public class TareasDTO {
 
     private Long id;
+    private String descripcion;
     private Date fecha_inicio;
     private Date fecha_finalizacion;
     private double importancia;
@@ -26,8 +27,9 @@ public class TareasDTO {
     public TareasDTO() {
     }
 
-    public TareasDTO(Long id, Date fecha_inicio, Date fecha_finalizacion, double importancia, double urgencia, double prioridad, double porcentaje_avance, ProyectosDTO proyectos) {
+    public TareasDTO(Long id, String descripcion, Date fecha_inicio, Date fecha_finalizacion, double importancia, double urgencia, double prioridad, double porcentaje_avance, ProyectosDTO proyectos) {
         this.id = id;
+        this.descripcion = descripcion;
         this.fecha_inicio = fecha_inicio;
         this.fecha_finalizacion = fecha_finalizacion;
         this.importancia = importancia;
@@ -43,6 +45,14 @@ public class TareasDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Date getFecha_inicio() {
@@ -103,8 +113,7 @@ public class TareasDTO {
 
     @Override
     public String toString() {
-        return "TareasDTO{" + "id=" + id + ", fecha_inicio=" + fecha_inicio + ", fecha_finalizacion=" + fecha_finalizacion + ", importancia=" + importancia + ", urgencia=" + urgencia + ", prioridad=" + prioridad + ", porcentaje_avance=" + porcentaje_avance + ", proyectos=" + proyectos + '}';
+        return "TareasDTO{" + "id=" + id + ", descripcion=" + descripcion + ", fecha_inicio=" + fecha_inicio + ", fecha_finalizacion=" + fecha_finalizacion + ", importancia=" + importancia + ", urgencia=" + urgencia + ", prioridad=" + prioridad + ", porcentaje_avance=" + porcentaje_avance + ", proyectos=" + proyectos + '}';
     }
-    
-    
+
 }
