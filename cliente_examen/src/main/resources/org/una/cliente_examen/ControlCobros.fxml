@@ -20,7 +20,7 @@
             <TreeView fx:id="tviewControlCobros" opacity="0.71" prefHeight="402.0" prefWidth="178.0" stylesheets="@Style.css" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Button mnemonicParsing="false" styleClass="jfx-buttonStandard2" stylesheets="@Style.css" text="Atras" BorderPane.alignment="CENTER">
+            <Button fx:id="btnAtras" mnemonicParsing="false" onAction="#Atras" styleClass="jfx-buttonStandard2" stylesheets="@Style.css" text="Atras" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets right="50.0" top="300.0" />
                </BorderPane.margin>
