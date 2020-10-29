@@ -80,6 +80,6 @@
             <InnerShadow />
          </effect>
       </Button>
-      <ComboBox fx:id="cbxProyectos" layoutX="256.0" layoutY="427.0" prefHeight="25.0" prefWidth="191.0" />
+      <ComboBox fx:id="cbxProyectos" layoutX="256.0" layoutY="427.0" onAction="#actionCbxProyecto" prefHeight="25.0" prefWidth="191.0" />
    </children>
 </AnchorPane>

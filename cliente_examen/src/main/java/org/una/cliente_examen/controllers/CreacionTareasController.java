@@ -7,9 +7,13 @@ package org.una.cliente_examen.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +32,7 @@ import javafx.stage.Stage;
 import org.una.cliente_examen.App;
 import org.una.cliente_examen.dto.ProyectosDTO;
 import org.una.cliente_examen.dto.TareasDTO;
+import org.una.cliente_examen.service.ProyectosService;
 import org.una.cliente_examen.service.TareasService;
 
 /**
@@ -53,6 +58,8 @@ public class CreacionTareasController implements Initializable {
     private TextField txtPorcentajeAvance;
     @FXML
     private ComboBox<ProyectosDTO> cbxProyectos;
+    @FXML
+    private Button actionbtnAtras;
 
     Date date = new Date();
     Date date2 = new Date();
@@ -60,15 +67,25 @@ public class CreacionTareasController implements Initializable {
     TareasDTO tareasDTO = new TareasDTO();
     TareasService tareasService = new TareasService();
     ProyectosDTO proyectosDTO = new ProyectosDTO();
-    @FXML
-    private Button actionbtnAtras;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbxProyectos.setItems(FXCollections.observableArrayList(proyectosDTO));
+        ProyectosService proyectosService = new ProyectosService();
+        List<ProyectosDTO> proyectolist = new ArrayList<>();
+        try {
+            proyectolist = (List<ProyectosDTO>) proyectosService.getAll();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(CreacionTareasController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(CreacionTareasController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(CreacionTareasController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cbxProyectos.setItems(FXCollections.observableArrayList(proyectolist));
+
     }
 
     @FXML
@@ -83,7 +100,7 @@ public class CreacionTareasController implements Initializable {
             tareasDTO.setPrioridad(Double.parseDouble(txtPrioridad.getText()));
             tareasDTO.setUrgencia(Double.parseDouble(txtUrgencia.getText()));
             tareasDTO.setPorcentaje_avance(Double.parseDouble(txtPorcentajeAvance.getText()));
-//            cbxProyectos.setValue(tareasDTO.getProyectos());
+            tareasDTO.setProyectos(proyectosDTO);
             tareasService.add(tareasDTO);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
@@ -107,6 +124,13 @@ public class CreacionTareasController implements Initializable {
         window.setScene(creacionDocs);
         window.show();
 
+    }
+
+    @FXML
+    private void actionCbxProyecto(ActionEvent event) {
+        if (cbxProyectos.getSelectionModel().getSelectedItem() != null) {
+            proyectosDTO = (ProyectosDTO) cbxProyectos.getSelectionModel().getSelectedItem();
+        }
     }
 
 }
