@@ -39,7 +39,7 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void actionBtnControlTareas(ActionEvent event) throws IOException {
@@ -51,7 +51,12 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    private void actionBtnControlPoblaciones(ActionEvent event) {
+    private void actionBtnControlPoblaciones(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(App.class.getResource("EditarInfo.fxml"));
+        Scene creacionDocs = new Scene(root);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(creacionDocs);
+        window.show();
     }
 
     @FXML
@@ -62,7 +67,5 @@ public class DashboardController implements Initializable {
         window.setScene(creacionDocs);
         window.show();
     }
-    
-   
-    
+
 }
