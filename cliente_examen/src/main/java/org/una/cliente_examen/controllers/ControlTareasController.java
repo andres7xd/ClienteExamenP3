@@ -16,8 +16,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
@@ -25,6 +28,8 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import org.una.cliente_examen.App;
 import org.una.cliente_examen.dto.ProyectosDTO;
 import org.una.cliente_examen.dto.TareasDTO;
 import org.una.cliente_examen.service.ProyectosService;
@@ -203,11 +208,21 @@ public class ControlTareasController implements Initializable {
     }
 
     @FXML
-    private void actionCrearProyecto(ActionEvent event) {
+    private void actionCrearProyecto(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(App.class.getResource("CreacionProyectos.fxml"));
+        Scene creacionDocs = new Scene(root);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(creacionDocs);
+        window.show();
     }
 
     @FXML
-    private void actionCrearTarea(ActionEvent event) {
+    private void actionCrearTarea(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(App.class.getResource("CreacionTareas.fxml"));
+        Scene creacionDocs = new Scene(root);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(creacionDocs);
+        window.show();
     }
 
     @FXML
