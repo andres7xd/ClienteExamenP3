@@ -17,14 +17,19 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import org.una.cliente_examen.App;
 import org.una.cliente_examen.dto.ClienteDTO;
 import org.una.cliente_examen.service.ClienteService;
 
@@ -116,7 +121,12 @@ public class ControlCobrosController implements Initializable {
     }
 
     @FXML
-    private void Atras(ActionEvent event) {
+    private void Atras(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(App.class.getResource("Dashboard.fxml"));
+        Scene creacionDocs = new Scene(root);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(creacionDocs);
+        window.show();
     }
 
     private void Evento(ActionEvent e) {
