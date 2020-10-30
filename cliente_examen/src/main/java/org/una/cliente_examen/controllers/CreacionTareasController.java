@@ -24,7 +24,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -35,7 +34,6 @@ import org.una.cliente_examen.dto.ProyectosDTO;
 import org.una.cliente_examen.dto.TareasDTO;
 import org.una.cliente_examen.service.ProyectosService;
 import org.una.cliente_examen.service.TareasService;
-import org.una.cliente_examen.utils.AppContext;
 
 /**
  * FXML Controller class
@@ -85,22 +83,6 @@ public class CreacionTareasController implements Initializable {
             Logger.getLogger(CreacionTareasController.class.getName()).log(Level.SEVERE, null, ex);
         }
         cbxProyectos.setItems(FXCollections.observableArrayList(proyectolist));
-
-        if (AppContext.getInstance().get("ed").equals("edit")) {
-            TareasDTO tareasDTO = new TareasDTO();
-            tareasDTO = (TareasDTO) AppContext.getInstance().get("tareasDTO");
-            txtDescripcion.setText(tareasDTO.getDescripcion());
-            txtImportancia.setText(String.valueOf(tareasDTO.getImportancia()));
-            txtUrgencia.setText(String.valueOf(tareasDTO.getUrgencia()));
-            txtPrioridad.setText(String.valueOf(tareasDTO.getPrioridad()));
-            txtPorcentajeAvance.setText(String.valueOf(tareasDTO.getPorcentaje_avance()));
-            LocalDate fecha = parsearFecha(tareasDTO.getFecha_inicio().toString());
-            dpFechaInicio.setValue(fecha);
-            LocalDate fecha2 = parsearFecha(tareasDTO.getFecha_finalizacion().toString());
-            dpFechaFinalizacion.setValue(fecha2);
-            
-            System.out.println("88888888888888888"+tareasDTO.getDescripcion());
-        }
 
     }
 
@@ -158,10 +140,10 @@ public class CreacionTareasController implements Initializable {
     @FXML
     private void actionCrearTarea(ActionEvent event) throws InterruptedException, ExecutionException, IOException {
 
-        date = java.sql.Date.valueOf(dpFechaInicio.getValue());
-        date2 = java.sql.Date.valueOf(dpFechaFinalizacion.getValue());
+        try {
+            date = java.sql.Date.valueOf(dpFechaInicio.getValue());
+            date2 = java.sql.Date.valueOf(dpFechaFinalizacion.getValue());
 
-        if (!AppContext.getInstance().get("ed").equals("edit")) {
             tareasDTO.setDescripcion(txtDescripcion.getText());
             tareasDTO.setFecha_inicio(date);
             tareasDTO.setFecha_finalizacion(date2);
@@ -172,26 +154,16 @@ public class CreacionTareasController implements Initializable {
             tareasDTO.setProyectos(proyectosDTO);
             tareasService.add(tareasDTO);
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.OK);
             alert.setTitle("Mensaje");
             alert.setHeaderText("Tarea creada con éxito.");
             alert.show();
-        }else{
-            proyectosDTO = (ProyectosDTO) AppContext.getInstance().get("proyectosDTO");
-            
-            tareasDTO.setDescripcion(txtDescripcion.getText());
-            tareasDTO.setFecha_inicio(date);
-            tareasDTO.setFecha_finalizacion(date2);
-            tareasDTO.setImportancia(Double.parseDouble(txtImportancia.getText()));
-            tareasDTO.setPrioridad(Double.parseDouble(txtPrioridad.getText()));
-            tareasDTO.setUrgencia(Double.parseDouble(txtUrgencia.getText()));
-            tareasDTO.setPorcentaje_avance(Double.parseDouble(txtPorcentajeAvance.getText()));
-            tareasDTO.setProyectos(proyectosDTO);
-            tareasService.modify(tareasDTO.getId());
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
-            alert.setTitle("Mensaje");
-            alert.setHeaderText("Tarea creada con éxito.");
+        } catch (Exception e) {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.OK);
+            alert.setTitle("Error");
+            alert.setHeaderText("La tarea no se pudo crear.");
             alert.show();
         }
 
@@ -209,9 +181,9 @@ public class CreacionTareasController implements Initializable {
 
     @FXML
     private void actionCbxProyecto(ActionEvent event) {
-//        if (cbxProyectos.getSelectionModel().getSelectedItem() != null) {
-//            proyectosDTO = (ProyectosDTO) cbxProyectos.getSelectionModel().getSelectedItem();
-//        }
+        if (cbxProyectos.getSelectionModel().getSelectedItem() != null) {
+            proyectosDTO = (ProyectosDTO) cbxProyectos.getSelectionModel().getSelectedItem();
+        }
     }
 
 }

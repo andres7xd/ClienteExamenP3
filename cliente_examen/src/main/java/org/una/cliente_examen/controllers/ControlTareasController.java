@@ -127,7 +127,6 @@ public class ControlTareasController implements Initializable {
     public void EventoTreeItem() {
         treeViewProyectos.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
             Node node = e.getPickResult().getIntersectedNode();
-            String.format("-fx-background: #ff%02x00;");
             if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
                 String description = (String) ((TreeItem) treeViewProyectos.getSelectionModel().getSelectedItem()).getValue();
                 if (description != "Proyectos" && CompararNombresProyectos(description) == true) {
@@ -248,7 +247,7 @@ public class ControlTareasController implements Initializable {
 
     @FXML
     private void actionModificarProyecto(ActionEvent event) throws IOException {
-        
+
     }
 
     @FXML
@@ -276,7 +275,7 @@ public class ControlTareasController implements Initializable {
     @FXML
     private void actionModificarTarea(ActionEvent event) throws IOException {
         EventoTreeItem();
-        
+
         AppContext.getInstance().set("tareasDTO", tareasDTO);
         AppContext.getInstance().set("ed", "edit");
 
