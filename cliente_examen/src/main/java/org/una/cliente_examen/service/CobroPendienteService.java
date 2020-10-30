@@ -5,6 +5,12 @@
  */
 package org.una.cliente_examen.service;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import org.una.cliente_examen.dto.ClienteConMembresiaDTO;
+import org.una.cliente_examen.utils.ConnectionUtils;
+
 /**
  *
  * @author Andres
