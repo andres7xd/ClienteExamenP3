@@ -19,11 +19,16 @@ public class DistritoService {
 
     List<DistritosDTO> distritoDto;
     private final String urlFindAll = "http://localhost:8099/distritos";
+    private final String urlCreate = "http://localhost:8099/distritos/";
 
     public List<DistritosDTO> getAll() throws InterruptedException, ExecutionException, IOException {
         distritoDto = ConnectionUtils.ListFromConnectionDistritos(urlFindAll, DistritosDTO.class);
 
         return ConnectionUtils.ListFromConnectionDistritos(urlFindAll, DistritosDTO.class);
+    }
+
+    public void add(DistritosDTO object) throws InterruptedException, ExecutionException, IOException {
+        ConnectionUtils.ObjectToConnection(urlCreate, object);
     }
 
     public static DistritoService getInstance() {
@@ -35,4 +40,3 @@ public class DistritoService {
         private static final DistritoService INSTANCE = new DistritoService();
     }
 }
-

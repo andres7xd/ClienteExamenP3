@@ -19,11 +19,15 @@ public class ProvinciaService {
 
     List<ProvinciasDTO> provinciaDto;
     private final String urlFindAll = "http://localhost:8099/provincias";
+     private final String urlCreate = "http://localhost:8099/provincias/";
 
     public List<ProvinciasDTO> getAll() throws InterruptedException, ExecutionException, IOException {
         provinciaDto = ConnectionUtils.ListFromConnectionProvincias(urlFindAll, ProvinciasDTO.class);
 
         return ConnectionUtils.ListFromConnectionProvincias(urlFindAll, ProvinciasDTO.class);
+    }
+     public void add(ProvinciasDTO object) throws InterruptedException, ExecutionException, IOException {
+        ConnectionUtils.ObjectToConnection(urlCreate, object);
     }
 
     public static ProvinciaService getInstance() {

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.una.cliente_examen.controllers.EditarInformacionEspecificaController">
+   <children>
+      <VBox layoutX="107.0" layoutY="64.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="57.0" text="EDITAR">
+               <VBox.margin>
+                  <Insets left="280.0" top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label text="Nombre:">
+               <VBox.margin>
+                  <Insets left="50.0" top="30.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="txtNombre">
+               <VBox.margin>
+                  <Insets left="100.0" right="300.0" />
+               </VBox.margin>
+            </TextField>
+            <Label layoutX="60.0" layoutY="80.0" text="Código:">
+               <VBox.margin>
+                  <Insets left="50.0" top="40.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="txtCodigo" layoutX="110.0" layoutY="97.0">
+               <VBox.margin>
+                  <Insets left="100.0" right="300.0" />
+               </VBox.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#OnActionBtnGuardar" prefHeight="40.0" prefWidth="71.0" text="GUARDAR">
+               <VBox.margin>
+                  <Insets left="200.0" top="100.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#OnActionBtnSalir" prefHeight="35.0" prefWidth="77.0" text="SALIR">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="520.0" top="30.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

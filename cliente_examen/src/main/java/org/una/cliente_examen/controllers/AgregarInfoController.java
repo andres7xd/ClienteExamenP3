@@ -7,7 +7,11 @@ package org.una.cliente_examen.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +26,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.una.cliente_examen.App;
+import org.una.cliente_examen.dto.CantonesDTO;
+import org.una.cliente_examen.dto.DistritosDTO;
+import org.una.cliente_examen.dto.ProvinciasDTO;
+import org.una.cliente_examen.dto.TiposDTO;
+import org.una.cliente_examen.dto.UnidadesDTO;
+import org.una.cliente_examen.service.CantonService;
+import org.una.cliente_examen.service.DistritoService;
+import org.una.cliente_examen.service.ProvinciaService;
+import org.una.cliente_examen.service.TipoService;
+import org.una.cliente_examen.service.UnidadService;
 
 /**
  * FXML Controller class
@@ -38,10 +52,27 @@ public class AgregarInfoController implements Initializable {
     private TextField txtCodigo;
     @FXML
     private TextField txtNombre;
-
     @FXML
-    private Label lblprueba;
+    private Label lblTituloPregunta;
+    @FXML
+    private ComboBox<String> cbxEditable;
+    private TextField txtId;
+
+    private List<ProvinciasDTO> Listprovincias;
+    private List<CantonesDTO> Listcanton;
+    private List<DistritosDTO> Listdistritos;
+    private List<UnidadesDTO> Listunidades;
+    private List<TiposDTO> Listtipos;
+    private ProvinciaService provinica;
     String PalabraIdentificadora = "";
+    @FXML
+    private Label lblArea;
+    @FXML
+    private TextField txtarea;
+    @FXML
+    private Label lblpoblacion;
+    @FXML
+    private TextField txtpoblacion;
 
     /**
      * Initializes the controller class.
@@ -51,12 +82,25 @@ public class AgregarInfoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        try {
+            this.Listprovincias = ProvinciaService.getInstance().getAll();
+            this.Listcanton = CantonService.getInstance().getAll();
+            this.Listdistritos = DistritoService.getInstance().getAll();
+            this.Listunidades = UnidadService.getInstance().getAll();
+            this.Listtipos = TipoService.getInstance().getAll();
+        } catch (InterruptedException | ExecutionException | IOException ex) {
+            Logger.getLogger(AgregarInfoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.cbxEditable.setDisable(true);
+        this.lblTituloPregunta.setDisable(true);
+        this.lblArea.setDisable(true);
+        this.lblpoblacion.setDisable(true);
+        this.txtarea.setDisable(true);
+        this.txtpoblacion.setDisable(true);
         this.cbxItems.getItems().addAll("Provincia", "Cantón",
                 "Distrito",
                 "Unidad",
                 "Tipo");
-  
 
     }
 
@@ -64,6 +108,113 @@ public class AgregarInfoController implements Initializable {
 
         if ("Provincia".equals(this.PalabraIdentificadora)) {
             this.lblObjetoAgregar.setText("PROVINCIA");
+            this.cbxEditable.setDisable(true);
+            this.lblTituloPregunta.setDisable(true);
+            this.lblArea.setDisable(true);
+            this.lblpoblacion.setDisable(true);
+            this.txtarea.setDisable(true);
+            this.txtpoblacion.setDisable(true);
+
+        }
+        if ("Cantón".equals(this.PalabraIdentificadora)) {
+            this.lblObjetoAgregar.setText("CANTÓN");
+            this.lblTituloPregunta.setDisable(false);
+            this.cbxEditable.setDisable(false);
+            this.lblArea.setDisable(true);
+            this.lblpoblacion.setDisable(true);
+            this.txtarea.setDisable(true);
+            this.txtpoblacion.setDisable(true);
+            this.cbxEditable.getItems().clear();
+            for (int i = 0; i < this.Listprovincias.size(); i++) {
+                this.cbxEditable.getItems().addAll(this.Listprovincias.get(i).getNombre());
+                this.lblTituloPregunta.setText("Selecciones una provincia:");
+            }
+
+        }
+
+        if ("Distrito".equals(
+                this.PalabraIdentificadora)) {
+            this.lblObjetoAgregar.setText("DISTRITO");
+            this.lblTituloPregunta.setDisable(false);
+            this.cbxEditable.setDisable(false);
+            this.lblArea.setDisable(true);
+            this.lblpoblacion.setDisable(true);
+            this.txtarea.setDisable(true);
+            this.txtpoblacion.setDisable(true);
+            this.cbxEditable.getItems().clear();
+            for (int i = 0; i < this.Listprovincias.size(); i++) {
+                this.cbxEditable.getItems().addAll(this.Listcanton.get(i).getNombre());
+                this.lblTituloPregunta.setText("Selecciones una cantón:");
+            }
+
+        }
+
+        if ("Unidad".equals(
+                this.PalabraIdentificadora)) {
+            this.lblObjetoAgregar.setText("UNIDAD");
+            this.lblTituloPregunta.setDisable(false);
+            this.cbxEditable.setDisable(false);
+            this.lblArea.setDisable(false);
+            this.lblpoblacion.setDisable(false);
+            this.txtarea.setDisable(false);
+            this.txtpoblacion.setDisable(false);
+            this.cbxEditable.getItems().clear();
+            for (int i = 0; i < this.Listprovincias.size(); i++) {
+                this.cbxEditable.getItems().addAll(this.Listdistritos.get(i).getNombre());
+                this.lblTituloPregunta.setText("Selecciones una distrito:");
+            }
+        }
+
+        if ("Tipo".equals(this.PalabraIdentificadora)) {
+            this.lblObjetoAgregar.setText("TIPO");
+            this.lblArea.setDisable(true);
+            this.lblpoblacion.setDisable(true);
+            this.txtarea.setDisable(true);
+            this.txtpoblacion.setDisable(true);
+
+        }
+    }
+
+    @FXML
+    private void OnActionBtnAgregar(ActionEvent event) throws InterruptedException, ExecutionException, IOException {
+        String camposConError = "";
+        if (this.txtNombre.getText() == null || "".equals(this.txtNombre.getText())) {
+            camposConError = "Nombre";
+        }
+        if ("".equals(this.txtCodigo.getText()) || this.txtCodigo.getText() == null) {
+            camposConError += "\nCódigo";
+        }
+        if (!"".equals(camposConError)) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setContentText("Información requerida faltante\n" + camposConError);
+            alert.show();
+        } else {
+            this.CrearObjeto();
+        }
+    }
+
+    @FXML
+    private void OnActionBtnSalir(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(App.class
+                .getResource("Dashboard.fxml"));
+        Scene creacionDocs = new Scene(root);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        window.setScene(creacionDocs);
+
+        window.show();
+    }
+
+    @FXML
+    private void OnActionCbxInfo(ActionEvent event) {
+        this.PalabraIdentificadora = this.cbxItems.getValue();
+        this.IdentificadorDeInfo();
+    }
+
+    public void ComboBoxEditable() {
+        if ("Provincia".equals(this.PalabraIdentificadora)) {
+            this.lblObjetoAgregar.setText("PROVINCIA");
+
         }
         if ("Cantón".equals(this.PalabraIdentificadora)) {
             this.lblObjetoAgregar.setText("CANTÓN");
@@ -77,37 +228,96 @@ public class AgregarInfoController implements Initializable {
         if ("Tipo".equals(this.PalabraIdentificadora)) {
             this.lblObjetoAgregar.setText("TIPO");
         }
+
     }
 
-    @FXML
-    private void OnActionBtnAgregar(ActionEvent event) {
-        String camposConError = "";
-        if (this.txtNombre.getText() == null || "".equals(this.txtNombre.getText())) {
-            camposConError = "Nombre";
+    public void CrearObjeto() throws InterruptedException, ExecutionException, IOException {
+        ProvinciasDTO provinciacapturada = new ProvinciasDTO();
+        CantonesDTO cantoncapturada = new CantonesDTO();
+        DistritosDTO distritodcapturado = new DistritosDTO();
+        TiposDTO tipocapturado = new TiposDTO();
+        if ("Provincia".equals(this.PalabraIdentificadora)) {
+            ProvinciasDTO newprovincia = new ProvinciasDTO();
+            newprovincia.setNombre(this.txtNombre.getText());
+            newprovincia.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
+            newprovincia.setId(Long.valueOf(this.txtId.getText()));
+            ProvinciaService.getInstance().add(newprovincia);
+            this.MensajeDeExito();
+
         }
-        if ("".equals(this.txtCodigo.getText()) || this.txtCodigo.getText() == null) {
-            camposConError += "\nCódigo";
+        if ("Cantón".equals(this.PalabraIdentificadora)) {
+            for (int i = 0; i < this.Listprovincias.size(); i++) {
+                if (this.Listprovincias.get(i).getNombre() == this.cbxEditable.getValue()) {
+                    provinciacapturada = this.Listprovincias.get(i);
+                    System.out.println(provinciacapturada);
+                }
+            }
+            CantonesDTO newcanton = new CantonesDTO();
+            newcanton.setNombre(this.txtNombre.getText());
+            newcanton.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
+            newcanton.setProvincia(provinciacapturada);
+            CantonService.getInstance().add(newcanton);
+            this.MensajeDeExito();
+            this.LimpiarCampos();
         }
-        if (!"".equals(camposConError)) {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setContentText("Información requerida faltante\n" + camposConError);
-            alert.show();
+        if ("Distrito".equals(this.PalabraIdentificadora)) {
+            DistritosDTO newdistrito = new DistritosDTO();
+            for (int i = 0; i < this.Listcanton.size(); i++) {
+                if (this.Listcanton.get(i).getNombre() == this.cbxEditable.getValue()) {
+                    cantoncapturada = this.Listcanton.get(i);
+                    System.out.println(cantoncapturada);
+                }
+            }
+            newdistrito.setNombre(this.txtNombre.getText());
+            newdistrito.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
+            DistritoService.getInstance().add(newdistrito);
+            this.MensajeDeExito();
+            this.LimpiarCampos();
         }
+        if ("Unidad".equals(this.PalabraIdentificadora)) {
+            UnidadesDTO newunidad = new UnidadesDTO();
+            for (int i = 0; i < this.Listdistritos.size(); i++) {
+                for (int j = 0; j < this.Listtipos.size(); j++) {
+                    if (this.Listdistritos.get(i).getNombre() == this.cbxEditable.getValue()
+                            && this.Listtipos.get(j).getNombre() == this.cbxEditable.getValue()) {
+                        distritodcapturado = this.Listdistritos.get(i);
+                        tipocapturado = this.Listtipos.get(j);
+                        System.out.println(distritodcapturado);
+                    }
+                }
+            }
+            newunidad.setNombre(this.txtNombre.getText());
+            newunidad.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
+            newunidad.setDistrito(distritodcapturado);
+            newunidad.setTipos(tipocapturado);
+            UnidadService.getInstance().add(newunidad);
+            this.MensajeDeExito();
+            this.LimpiarCampos();
+
+        }
+        if ("Tipo".equals(this.PalabraIdentificadora)) {
+            TiposDTO newtipo = new TiposDTO();
+            newtipo.setNombre(this.txtNombre.getText());
+            newtipo.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
+            TipoService.getInstance().add(newtipo);
+            this.MensajeDeExito();
+            this.LimpiarCampos();
+
+        }
+
     }
 
-    @FXML
-    private void OnActionBtnSalir(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(App.class.getResource("Dashboard.fxml"));
-        Scene creacionDocs = new Scene(root);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(creacionDocs);
-        window.show();
+    public void MensajeDeExito() {
+        String menssage = "!SE HA CREADO EXITOSAMENTE!";
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setContentText(
+                menssage);
+        alert.show();
     }
 
-    @FXML
-    private void OnActionCbxInfo(ActionEvent event) {
-        this.PalabraIdentificadora = this.cbxItems.getValue();
-        this.IdentificadorDeInfo();
-    }
+    public void LimpiarCampos() {
+        this.txtNombre.setText("");
+        this.txtCodigo.setText("");
 
+    }
 }

@@ -135,7 +135,7 @@ public class EditarInfoController implements Initializable {
     public void LlenarTabla() throws InterruptedException, ExecutionException, IOException {
         if ("Provincia".equals(this.PalabraIdentificadora)) {
             this.Listprovincias = ProvinciaService.getInstance().getAll();
-            System.out.println(Listprovincias.get(0).getId());
+
             TableColumn<ProvinciasDTO, String> colNombre = new TableColumn<>("nombre");
             colNombre.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getNombre()));
             TableColumn<ProvinciasDTO, String> colCodigo = new TableColumn<>("codigo");
@@ -143,55 +143,60 @@ public class EditarInfoController implements Initializable {
             TableColumn<ProvinciasDTO, String> colId = new TableColumn<>("id");
             colId.setCellValueFactory((p) -> new SimpleStringProperty(String.valueOf(p.getValue().getId())));
             this.TableView.getColumns().addAll(colNombre, colCodigo, colId);
-            this.TableView.setItems(FXCollections.observableArrayList(this.Listprovincias));
+            this.TableView.setItems(FXCollections.observableArrayList(this.Listprovincias)); 
+            ProvinciasDTO provinciaseleccionada = (ProvinciasDTO) this.TableView.getSelectionModel().getSelectedItem();
+            System.out.println(provinciaseleccionada);
         }
         if ("Cantón".equals(this.PalabraIdentificadora)) {
             this.Listcanton = CantonService.getInstance().getAll();
-            System.out.println(Listprovincias.get(0).getNombre());
-            TableColumn<ProvinciasDTO, String> colNombre = new TableColumn<>("nombre");
-            colNombre.setCellValueFactory((p) -> new SimpleStringProperty(p.getValue().getNombre()));
-            TableColumn<ProvinciasDTO, String> colCodigo = new TableColumn<>("codigo");
+            this.TableView.getColumns().clear();
+            TableColumn<CantonesDTO, String> colNombre = new TableColumn<>("nombre");
+            colNombre.setCellValueFactory((p) -> new SimpleObjectProperty(p.getValue().getNombre()));
+            TableColumn<CantonesDTO, String> colCodigo = new TableColumn<>("codigo");
             colCodigo.setCellValueFactory((p) -> new SimpleStringProperty(String.valueOf(p.getValue().getCodigo())));
-            TableColumn<ProvinciasDTO, String> colId = new TableColumn<>("id");
+            TableColumn<CantonesDTO, String> colId = new TableColumn<>("id");
             colId.setCellValueFactory((p) -> new SimpleStringProperty(String.valueOf(p.getValue().getId())));
             this.TableView.getColumns().addAll(colNombre, colCodigo, colId);
             this.TableView.setItems(FXCollections.observableArrayList(this.Listcanton));
         }
         if ("Distrito".equals(this.PalabraIdentificadora)) {
             this.Listdistritos = DistritoService.getInstance().getAll();
-            System.out.println(Listprovincias.get(0).getNombre());
-            TableColumn<ProvinciasDTO, String> colNombre = new TableColumn<>("nombre");
-            colNombre.setCellValueFactory((p) -> new SimpleStringProperty(p.getValue().getNombre()));
-            TableColumn<ProvinciasDTO, String> colCodigo = new TableColumn<>("codigo");
+            this.TableView.getColumns().clear();
+            TableColumn<DistritosDTO, String> colNombre = new TableColumn<>("nombre");
+            colNombre.setCellValueFactory((p) -> new SimpleObjectProperty(p.getValue().getNombre()));
+            TableColumn<DistritosDTO, String> colCodigo = new TableColumn<>("codigo");
             colCodigo.setCellValueFactory((p) -> new SimpleStringProperty(String.valueOf(p.getValue().getCodigo())));
-            TableColumn<ProvinciasDTO, String> colId = new TableColumn<>("id");
+            TableColumn<DistritosDTO, String> colId = new TableColumn<>("id");
             colId.setCellValueFactory((p) -> new SimpleStringProperty(String.valueOf(p.getValue().getId())));
             this.TableView.getColumns().addAll(colNombre, colCodigo, colId);
             this.TableView.setItems(FXCollections.observableArrayList(this.Listdistritos));
         }
         if ("Tipo".equals(this.PalabraIdentificadora)) {
             this.Listtipos = TipoService.getInstance().getAll();
+            this.TableView.getColumns().clear();
             System.out.println(Listprovincias.get(0).getNombre());
-            TableColumn<ProvinciasDTO, String> colNombre = new TableColumn<>("nombre");
-            colNombre.setCellValueFactory((p) -> new SimpleStringProperty(p.getValue().getNombre()));
-            TableColumn<ProvinciasDTO, String> colCodigo = new TableColumn<>("codigo");
+            TableColumn<TiposDTO, String> colNombre = new TableColumn<>("nombre");
+            colNombre.setCellValueFactory((p) -> new SimpleObjectProperty(p.getValue().getNombre()));
+            TableColumn<TiposDTO, String> colCodigo = new TableColumn<>("codigo");
             colCodigo.setCellValueFactory((p) -> new SimpleStringProperty(String.valueOf(p.getValue().getCodigo())));
-            TableColumn<ProvinciasDTO, String> colId = new TableColumn<>("id");
+            TableColumn<TiposDTO, String> colId = new TableColumn<>("id");
             colId.setCellValueFactory((p) -> new SimpleStringProperty(String.valueOf(p.getValue().getId())));
             this.TableView.getColumns().addAll(colNombre, colCodigo, colId);
             this.TableView.setItems(FXCollections.observableArrayList(this.Listtipos));
         }
         if ("Unidad".equals(this.PalabraIdentificadora)) {
             this.Listunidades = UnidadService.getInstance().getAll();
+            this.TableView.getColumns().clear();
             System.out.println(Listprovincias.get(0).getNombre());
-            TableColumn<ProvinciasDTO, String> colNombre = new TableColumn<>("nombre");
-            colNombre.setCellValueFactory((p) -> new SimpleStringProperty(p.getValue().getNombre()));
-            TableColumn<ProvinciasDTO, String> colCodigo = new TableColumn<>("codigo");
+            TableColumn<UnidadesDTO, String> colNombre = new TableColumn<>("nombre");
+            colNombre.setCellValueFactory((p) -> new SimpleObjectProperty(p.getValue().getNombre()));
+            TableColumn<UnidadesDTO, String> colCodigo = new TableColumn<>("codigo");
             colCodigo.setCellValueFactory((p) -> new SimpleStringProperty(String.valueOf(p.getValue().getCodigo())));
-            TableColumn<ProvinciasDTO, String> colId = new TableColumn<>("id");
+            TableColumn<UnidadesDTO, String> colId = new TableColumn<>("id");
             colId.setCellValueFactory((p) -> new SimpleStringProperty(String.valueOf(p.getValue().getId())));
             this.TableView.getColumns().addAll(colNombre, colCodigo, colId);
             this.TableView.setItems(FXCollections.observableArrayList(this.Listunidades));
         }
+        
     }
 }
