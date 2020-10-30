@@ -20,6 +20,8 @@ public class TareasService {
     List<TareasDTO> tareasDTO;
     private final String urlFindAll = "http://localhost:8099/exa_lmc_tareas";
     private final String urlCreate = "http://localhost:8099/exa_lmc_tareas/";
+    private final String urlModify = "http://localhost:8099/exa_lmc_tareas/{id}";
+    private final String urlDelete = "http://localhost:8099/exa_lmc_tareas/{id}";
 
     public List<TareasDTO> getAll() throws InterruptedException, ExecutionException, IOException {
         return ConnectionUtils.ListFromConnectionTareas(urlFindAll, TareasDTO.class);
@@ -31,6 +33,14 @@ public class TareasService {
 
     public static TareasService getInstance() {
         return TareasServiceHolder.INSTANCE;
+    }
+
+    public void modify(Long id) throws InterruptedException, ExecutionException, IOException {
+        ConnectionUtils.ObjectToConnectionPut(urlModify, id);
+    }
+
+    public void delete(Long id) throws InterruptedException, ExecutionException, IOException {
+        ConnectionUtils.ObjectToConnectionDelete(urlDelete, id);
     }
 
     private static class TareasServiceHolder {

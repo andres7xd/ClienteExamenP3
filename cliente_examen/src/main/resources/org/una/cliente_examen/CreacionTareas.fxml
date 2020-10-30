@@ -72,7 +72,7 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button fx:id="actionbtnAtras" layoutX="466.0" layoutY="489.0" mnemonicParsing="false" onAction="#actionAtras" styleClass="jfx-buttonStandard2" stylesheets="@Style.css" text="Atrás">
+      <Button layoutX="466.0" layoutY="489.0" mnemonicParsing="false" onAction="#actionAtras" styleClass="jfx-buttonStandard2" stylesheets="@Style.css" text="Atrás">
          <font>
             <Font name="Century Gothic Bold" size="20.0" />
          </font>

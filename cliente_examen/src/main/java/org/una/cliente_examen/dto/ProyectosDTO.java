@@ -50,7 +50,9 @@ public class ProyectosDTO {
 
     @Override
     public String toString() {
-        return "ProyectosDTO{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
+        return nombre;
     }
+
+   
      
 }
