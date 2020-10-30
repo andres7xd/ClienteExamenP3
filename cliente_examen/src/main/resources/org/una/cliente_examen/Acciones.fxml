@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.una.cliente_examen.controllers.AccionesController">
+   <children>
+      <HBox layoutX="228.0" layoutY="132.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="400.0" prefWidth="605.0">
+               <children>
+                  <Label prefHeight="40.0" prefWidth="251.0" text="BIENVENIDO CONTROL POBLACIONAL">
+                     <VBox.margin>
+                        <Insets left="160.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Bodoni MT Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="¿Qué desea realizar?">
+                     <VBox.margin>
+                        <Insets left="230.0" top="50.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#OnActionBtnAgregar" prefHeight="37.0" prefWidth="90.0" text="AGREGAR">
+                     <VBox.margin>
+                        <Insets left="50.0" top="50.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#OnActionBtnEditar" prefHeight="33.0" prefWidth="96.0" text="EDITAR">
+                     <VBox.margin>
+                        <Insets left="300.0" top="50.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button layoutX="260.0" layoutY="269.0" mnemonicParsing="false" onAction="#OnActionBtnEliminar" prefHeight="33.0" prefWidth="96.0" text="ELIMINAR">
+                     <VBox.margin>
+                        <Insets left="500.0" top="70.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

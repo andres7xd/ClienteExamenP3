@@ -15,23 +15,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.una.cliente_examen.App;
 
 /**
  * FXML Controller class
  *
- * @author Luis
+ * @author rache
  */
-public class DashboardController implements Initializable {
-
-    @FXML
-    private Button btnControlTareas;
-    @FXML
-    private Button btnControlPoblaciones;
-    @FXML
-    private Button btnControlMembresias;
+public class AccionesController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -42,8 +34,8 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    private void actionBtnControlTareas(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(App.class.getResource("ControlTareas.fxml"));
+    private void OnActionBtnAgregar(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(App.class.getResource("AgregarInfo.fxml"));
         Scene creacionDocs = new Scene(root);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(creacionDocs);
@@ -51,8 +43,8 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    private void actionBtnControlPoblaciones(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(App.class.getResource("Acciones.fxml"));
+    private void OnActionBtnEditar(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(App.class.getResource("EditarInfo.fxml"));
         Scene creacionDocs = new Scene(root);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(creacionDocs);
@@ -60,8 +52,8 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    private void actionBtnControlMembresias(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(App.class.getResource("ControlCobros.fxml"));
+    private void OnActionBtnEliminar(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(App.class.getResource("EliminarInfo.fxml"));
         Scene creacionDocs = new Scene(root);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(creacionDocs);

@@ -16,13 +16,19 @@ import org.una.cliente_examen.utils.ConnectionUtils;
  * @author rache
  */
 public class UnidadService {
-        List<UnidadesDTO> unidadDto;
+
+    List<UnidadesDTO> unidadDto;
     private final String urlFindAll = "http://localhost:8099/unidades";
+    private final String urlCreate = "http://localhost:8099/unidades/";
 
     public List<UnidadesDTO> getAll() throws InterruptedException, ExecutionException, IOException {
         unidadDto = ConnectionUtils.ListFromConnectionUnidades(urlFindAll, UnidadesDTO.class);
 
         return ConnectionUtils.ListFromConnectionUnidades(urlFindAll, UnidadesDTO.class);
+    }
+
+    public void add(UnidadesDTO object) throws InterruptedException, ExecutionException, IOException {
+        ConnectionUtils.ObjectToConnection(urlCreate, object);
     }
 
     public static UnidadService getInstance() {
@@ -34,4 +40,3 @@ public class UnidadService {
         private static final UnidadService INSTANCE = new UnidadService();
     }
 }
-

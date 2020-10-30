@@ -19,11 +19,16 @@ public class TipoService {
 
     List<TiposDTO> tiposDto;
     private final String urlFindAll = "http://localhost:8099/tipos";
+    private final String urlCreate = "http://localhost:8099/unidades/";
 
     public List<TiposDTO> getAll() throws InterruptedException, ExecutionException, IOException {
         tiposDto = ConnectionUtils.ListFromConnectionTipos(urlFindAll, TiposDTO.class);
 
         return ConnectionUtils.ListFromConnectionTipos(urlFindAll, TiposDTO.class);
+    }
+
+    public void add(TiposDTO object) throws InterruptedException, ExecutionException, IOException {
+        ConnectionUtils.ObjectToConnection(urlCreate, object);
     }
 
     public static TipoService getInstance() {

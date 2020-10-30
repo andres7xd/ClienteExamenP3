@@ -19,11 +19,16 @@ public class CantonService {
 
     List<CantonesDTO> cantonDto;
     private final String urlFindAll = "http://localhost:8099/cantones";
+    private final String urlCreate = "http://localhost:8099/cantones/";
 
     public List<CantonesDTO> getAll() throws InterruptedException, ExecutionException, IOException {
         cantonDto = ConnectionUtils.ListFromConnectionCantones(urlFindAll, CantonesDTO.class);
 
         return ConnectionUtils.ListFromConnectionCantones(urlFindAll, CantonesDTO.class);
+    }
+
+    public void add(CantonesDTO object) throws InterruptedException, ExecutionException, IOException {
+        ConnectionUtils.ObjectToConnection(urlCreate, object);
     }
 
     public static CantonService getInstance() {

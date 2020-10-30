@@ -9,10 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="471.0" prefWidth="668.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.una.cliente_examen.controllers.AgregarInfoController">
+<AnchorPane id="AnchorPane" prefHeight="471.0" prefWidth="668.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.cliente_examen.controllers.AgregarInfoController">
    <children>
-      <VBox prefHeight="503.0" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="503.0" prefWidth="273.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="¿Qué desea agregar?">
                <VBox.margin>
@@ -24,13 +23,23 @@
                   <Insets left="30.0" top="20.0" />
                </VBox.margin>
             </ComboBox>
+            <Label fx:id="lblTituloPregunta" prefHeight="24.0" prefWidth="271.0">
+               <VBox.margin>
+                  <Insets left="5.0" top="50.0" />
+               </VBox.margin>
+            </Label>
+            <ComboBox fx:id="cbxEditable" prefWidth="150.0">
+               <VBox.margin>
+                  <Insets left="30.0" top="30.0" />
+               </VBox.margin>
+            </ComboBox>
          </children>
       </VBox>
-      <VBox layoutX="235.0" layoutY="-2.0" prefHeight="471.0" prefWidth="433.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="274.0" layoutY="-2.0" prefHeight="503.0" prefWidth="394.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="274.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label fx:id="lblObjetoAgregar" prefHeight="27.0" prefWidth="126.0">
                <VBox.margin>
-                  <Insets left="150.0" top="50.0" />
+                  <Insets bottom="40.0" left="150.0" top="50.0" />
                </VBox.margin>
                <font>
                   <Font name="System Bold" size="18.0" />
@@ -38,7 +47,7 @@
             </Label>
             <Label text="Código:">
                <VBox.margin>
-                  <Insets left="20.0" top="50.0" />
+                  <Insets left="20.0" top="10.0" />
                </VBox.margin>
             </Label>
             <TextField fx:id="txtCodigo" prefHeight="25.0" prefWidth="307.0">
@@ -48,7 +57,7 @@
             </TextField>
             <Label text="Nombre:">
                <VBox.margin>
-                  <Insets left="20.0" top="50.0" />
+                  <Insets left="20.0" top="40.0" />
                </VBox.margin>
             </Label>
             <TextField fx:id="txtNombre" prefHeight="25.0" prefWidth="303.0">
@@ -56,14 +65,34 @@
                   <Insets left="20.0" right="150.0" top="20.0" />
                </VBox.margin>
             </TextField>
+            <Label fx:id="lblArea" layoutX="30.0" layoutY="239.0" text="Área:">
+               <VBox.margin>
+                  <Insets left="20.0" top="40.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="txtarea" layoutX="30.0" layoutY="276.0" prefHeight="25.0" prefWidth="303.0">
+               <VBox.margin>
+                  <Insets left="20.0" right="250.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <Label fx:id="lblpoblacion" layoutX="10.0" layoutY="301.0" text="Población:">
+               <VBox.margin>
+                  <Insets left="20.0" top="40.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="txtpoblacion" layoutX="10.0" layoutY="318.0" prefHeight="25.0" prefWidth="303.0">
+               <VBox.margin>
+                  <Insets left="20.0" right="250.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
             <Button mnemonicParsing="false" onAction="#OnActionBtnAgregar" text="AGREGAR">
                <VBox.margin>
-                  <Insets left="200.0" top="100.0" />
+                  <Insets left="180.0" top="30.0" />
                </VBox.margin>
             </Button>
             <Button mnemonicParsing="false" onAction="#OnActionBtnSalir" prefHeight="25.0" prefWidth="60.0" text="SALIR">
                <VBox.margin>
-                  <Insets left="370.0" top="60.0" />
+                  <Insets left="320.0" top="10.0" />
                </VBox.margin>
             </Button>
          </children>
