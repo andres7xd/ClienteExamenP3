@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
@@ -34,6 +35,7 @@ import org.una.cliente_examen.dto.ProyectosDTO;
 import org.una.cliente_examen.dto.TareasDTO;
 import org.una.cliente_examen.service.ProyectosService;
 import org.una.cliente_examen.service.TareasService;
+import org.una.cliente_examen.utils.AppContext;
 
 /**
  * FXML Controller class
@@ -43,11 +45,15 @@ import org.una.cliente_examen.service.TareasService;
 public class ControlTareasController implements Initializable {
 
     @FXML
-    private TreeView<String> treeViewProyectos;
+    private TreeView treeViewProyectos;
 
     private List<ProyectosDTO> proyectolist = new ArrayList<ProyectosDTO>();
 
     private List<TareasDTO> tareaslist = new ArrayList<TareasDTO>();
+
+    ProyectosDTO proyectosDTO = new ProyectosDTO();
+
+    TareasDTO tareasDTO = new TareasDTO();
 
     private String compDescripcion;
     @FXML
@@ -68,6 +74,8 @@ public class ControlTareasController implements Initializable {
     private TextField txtProyectoPerteneciente;
     @FXML
     private TextField txtPorcentajeAvance;
+
+    private Long capturarIdTarea;
 
     /**
      * Initializes the controller class.
@@ -119,17 +127,27 @@ public class ControlTareasController implements Initializable {
     public void EventoTreeItem() {
         treeViewProyectos.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
             Node node = e.getPickResult().getIntersectedNode();
+            String.format("-fx-background: #ff%02x00;");
             if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
                 String description = (String) ((TreeItem) treeViewProyectos.getSelectionModel().getSelectedItem()).getValue();
                 if (description != "Proyectos" && CompararNombresProyectos(description) == true) {
                     compDescripcion = description;
                 }
-                obtenerIdTareas();
+                ObtenerIdTarea(description);
+                obtenerInfoTareas();
             }
         });
     }
 
-    public void obtenerIdTareas() {
+    public void ObtenerIdTarea(String descrip) {
+        for (int i = 0; i < tareaslist.size(); i++) {
+            if (descrip == tareaslist.get(i).getDescripcion()) {
+                capturarIdTarea = tareaslist.get(i).getId();
+            }
+        }
+    }
+
+    public void obtenerInfoTareas() {
         for (int i = 0; i < tareaslist.size(); i++) {
             if (tareaslist.get(i).getDescripcion().equalsIgnoreCase(compDescripcion)) {
                 txtId.setText(tareaslist.get(i).getId().toString());
@@ -218,6 +236,9 @@ public class ControlTareasController implements Initializable {
 
     @FXML
     private void actionCrearTarea(ActionEvent event) throws IOException {
+        AppContext.getInstance().set("tareasDTO", tareasDTO);
+        AppContext.getInstance().set("ed", "insertar");
+
         Parent root = FXMLLoader.load(App.class.getResource("CreacionTareas.fxml"));
         Scene creacionDocs = new Scene(root);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -226,19 +247,69 @@ public class ControlTareasController implements Initializable {
     }
 
     @FXML
-    private void actionModificarProyecto(ActionEvent event) {
+    private void actionModificarProyecto(ActionEvent event) throws IOException {
+        
     }
 
     @FXML
     private void actionEliminarProyecto(ActionEvent event) {
+//        ProyectosService proyectosService = new ProyectosService();
+//        System.out.println("aaaaaaaaaaaaaaaa" + proyectosDTO.getId());
+//        if (proyectosDTO != null) {
+//            try {
+//                proyectosService.delete(proyectosDTO.getId());
+//                Alert info = new Alert(Alert.AlertType.CONFIRMATION);
+//                info.setTitle("Mensaje");
+//                info.setContentText("El proyecto se eliminó correctamente");
+//                info.showAndWait();
+//                LlenarTreeView();
+//            } catch (Exception e) {
+//                Alert info = new Alert(Alert.AlertType.CONFIRMATION);
+//                info.setTitle("Error");
+//                info.setContentText("No ha seleccionado un proyecto");
+//                info.showAndWait();
+//                LlenarTreeView();
+//            }
+//        }
     }
 
     @FXML
-    private void actionModificarTarea(ActionEvent event) {
+    private void actionModificarTarea(ActionEvent event) throws IOException {
+        EventoTreeItem();
+        
+        AppContext.getInstance().set("tareasDTO", tareasDTO);
+        AppContext.getInstance().set("ed", "edit");
+
+        Parent root = FXMLLoader.load(App.class.getResource("CreacionTareas.fxml"));
+        Scene creacionDocs = new Scene(root);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(creacionDocs);
+        window.show();
     }
 
     @FXML
     private void actionEliminarTarea(ActionEvent event) {
+        TareasService tareasService = new TareasService();
+        System.out.println("aaaaaaaaaaaaaaaaaaaa" + capturarIdTarea);
+        if (tareasDTO != null) {
+            try {
+                tareasService.delete(capturarIdTarea);
+                Alert info = new Alert(Alert.AlertType.CONFIRMATION);
+                info.setTitle("Mensaje");
+                info.setContentText("La tarea se eliminó correctamente");
+                info.showAndWait();
+                LlenarTreeView();
+            } catch (Exception e) {
+                Alert info = new Alert(Alert.AlertType.CONFIRMATION);
+                info.setTitle("Error");
+                info.setContentText("La tarea no se eliminó");
+                info.showAndWait();
+            }
+        }
     }
 
+    @FXML
+    private void actiontvProyectos(MouseEvent event) {
+
+    }
 }

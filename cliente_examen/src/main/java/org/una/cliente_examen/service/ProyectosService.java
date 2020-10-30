@@ -20,6 +20,8 @@ public class ProyectosService {
     List<ProyectosDTO> proyectosDTO;
     private final String urlFindAll = "http://localhost:8099/exa_lmc_proyectos";
     private final String urlCreate = "http://localhost:8099/exa_lmc_proyectos/";
+    private final String urlModify = "http://localhost:8099/exa_lmc_proyectos/{id}";
+    private final String urlDelete = "http://localhost:8099/exa_lmc_proyectos/{id}";
 
     public List<ProyectosDTO> getAll() throws InterruptedException, ExecutionException, IOException {
         return ConnectionUtils.ListFromConnectionProyectos(urlFindAll, ProyectosDTO.class);
@@ -31,6 +33,14 @@ public class ProyectosService {
 
     public static ProyectosService getInstance() {
         return ProyectosServiceHolder.INSTANCE;
+    }
+
+    public void modify(Long id) throws InterruptedException, ExecutionException, IOException {
+        ConnectionUtils.ObjectToConnectionPut(urlModify, id);
+    }
+
+    public void delete(Long id) throws InterruptedException, ExecutionException, IOException {
+        ConnectionUtils.ObjectToConnectionDelete(urlDelete, id);
     }
 
     private static class ProyectosServiceHolder {

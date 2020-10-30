@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="741.0" styleClass="anchorPadre" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.cliente_examen.controllers.ControlTareasController">
    <children>
-      <TreeView fx:id="treeViewProyectos" layoutY="-2.0" opacity="0.76" prefHeight="606.0" prefWidth="161.0" />
+      <TreeView fx:id="treeViewProyectos" layoutY="-2.0" onMouseClicked="#actiontvProyectos" opacity="0.76" prefHeight="606.0" prefWidth="161.0" />
       <Button layoutX="245.0" layoutY="11.0" mnemonicParsing="false" onAction="#actionCrearProyecto" styleClass="jfx-buttonStandard2" stylesheets="@Style.css" text="Crear un proyecto">
          <font>
             <Font name="Century Gothic Bold" size="13.0" />

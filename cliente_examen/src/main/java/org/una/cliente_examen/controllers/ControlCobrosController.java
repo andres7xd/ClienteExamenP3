@@ -7,7 +7,11 @@ package org.una.cliente_examen.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
@@ -23,15 +27,23 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.una.cliente_examen.App;
+import org.una.cliente_examen.dto.ClienteConMembresiaDTO;
 import org.una.cliente_examen.dto.ClienteDTO;
+import org.una.cliente_examen.dto.MembresiaDTO;
+import org.una.cliente_examen.service.ClienteConMembresiaService;
 import org.una.cliente_examen.service.ClienteService;
+import org.una.cliente_examen.service.MembresiaService;
 
 /**
  * FXML Controller class
@@ -41,25 +53,48 @@ import org.una.cliente_examen.service.ClienteService;
 public class ControlCobrosController implements Initializable {
 
     private List<ClienteDTO> clientelist = new ArrayList<ClienteDTO>();
+    private List<ClienteConMembresiaDTO> clientemembresialist = new ArrayList<ClienteConMembresiaDTO>();
+    private List<MembresiaDTO> membresialist = new ArrayList<MembresiaDTO>();
+    
     @FXML
     private TreeView<String> tviewControlCobros;
     @FXML
     private Button btnAtras;
 
     String cedulaactual;
+    @FXML
+    private TextField txtPeriosidad;
+    @FXML
+    private TextField txtMonto;
+    @FXML
+    private TextArea txtDescripcion;
+    @FXML
+    private TextField txtFechaInscripcion;
+    @FXML
+    private Button btnAyuda;
+    @FXML
+    private Button btnGenerarCobros;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        cargarTreeView();
+        
+        try {
+            cargarTreeView();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         eventoTreeItem();
 
     }
 
-    public void cargarTreeView() {
+    public void cargarTreeView() throws InterruptedException, ExecutionException, IOException {
         try {
             clientelist = ClienteService.getInstance().getAll();
             System.out.println(clientelist.toString());
@@ -70,17 +105,34 @@ public class ControlCobrosController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        clientemembresialist = ClienteConMembresiaService.getInstance().getAll();
+      
 
+//        TreeItem<String> root = new TreeItem<>("Clientes con membresia");
+////          root.setGraphic(imgroot);
+//        root.setExpanded(false);
+//        tviewControlCobros.setRoot(root);
+//        for (int i = 0; i < clientelist.size(); i++) {
+//
+//            TreeItem<String> item = new TreeItem<>(clientelist.get(i).getCedula());
+//            root.getChildren().add(item);
+//
+//        }
         TreeItem<String> root = new TreeItem<>("Clientes con membresia");
-//          root.setGraphic(imgroot);
         root.setExpanded(false);
-        tviewControlCobros.setRoot(root);
-        for (int i = 0; i < clientelist.size(); i++) {
-
-            TreeItem<String> item = new TreeItem<>(clientelist.get(i).getCedula());
-            root.getChildren().add(item);
-
+        for (int i = 0; i < clientemembresialist.size(); i++) {
+            TreeItem<String> root2 = new TreeItem<>(clientemembresialist.get(i).getCliente().getCedula());
+           
+               
+                    TreeItem<String> item = new TreeItem<>("Membresia");
+                    
+                    root2.getChildren().addAll(item);
+                
+            
+            root.getChildren().add(root2);
         }
+        tviewControlCobros.setRoot(root);
 
     }
 
@@ -89,35 +141,62 @@ public class ControlCobrosController implements Initializable {
             Node node = e.getPickResult().getIntersectedNode();
             if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
                 String name = (String) ((TreeItem) tviewControlCobros.getSelectionModel().getSelectedItem()).getValue();
-                if (name != "Clientes con membresia") {
+                
+                if (name != "Membresia" && name != "Clientes con membresia") {
                     cedulaactual = name;
-                    obtenerIdCLiente();
-
                 }
+                else if(name =="Membresia") {
+                    System.out.println(cedulaactual);
+                       try {
+                        AccionEvento();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ExecutionException ex) {
+                        Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+                    } 
+                   }
+                   
+
+                
 
             }
 
         });
     }
 
-    public void obtenerIdCLiente() {
+    public void AccionEvento() throws InterruptedException, ExecutionException, IOException {
 
         for (int i = 0; i < clientelist.size(); i++) {
 
             if (clientelist.get(i).getCedula().equalsIgnoreCase(cedulaactual)) {
-                System.out.println("dddddddddddd" + clientelist.get(i).getId());
+//                System.out.println("dddddddddddd" + clientelist.get(i).getId());
+                CargarInfoMembresia();
+
             }
         }
 
     }
 
-    private void handleMouseClicked(MouseEvent event) {
-        Node node = event.getPickResult().getIntersectedNode();
-        // Accept clicks only on node cells, and not on empty spaces of the TreeView
-        if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
-            String name = (String) ((TreeItem) tviewControlCobros.getSelectionModel().getSelectedItem()).getValue();
-            System.out.println("Node click: " + name);
+    public void CargarInfoMembresia() throws InterruptedException, ExecutionException, IOException {
+        boolean bandera = true;
+        clientemembresialist = ClienteConMembresiaService.getInstance().getAll();
+
+        for (int i = 0; i < clientemembresialist.size() && bandera == true; i++) {
+            if (cedulaactual.equalsIgnoreCase(clientemembresialist.get(i).getCliente().getCedula())) {
+                txtPeriosidad.setText(clientemembresialist.get(i).getMembresia().getPeriosidad());
+                txtMonto.setText(String.valueOf(clientemembresialist.get(i).getMembresia().getMonto()));
+                txtDescripcion.setText(clientemembresialist.get(i).getMembresia().getDescripcion());
+                asignarFechaTexfield(i);
+
+                bandera = false;
+            }
+
         }
+        bandera = true;
+
+
     }
 
     @FXML
@@ -128,9 +207,34 @@ public class ControlCobrosController implements Initializable {
         window.setScene(creacionDocs);
         window.show();
     }
+    
+    public void asignarFechaTexfield(int posicion){
+        Date myDate = clientemembresialist.get(posicion).getMembresia().getFecha_inscripcion();
+        txtFechaInscripcion.setText(String.valueOf(new SimpleDateFormat("dd-MM-yyyy").format(myDate)));
 
-    private void Evento(ActionEvent e) {
-        System.err.println("TOmechichi");
     }
+
+    @FXML
+    private void Ayuda(ActionEvent event) {
+    }
+
+    @FXML
+    private void GenerarCobros(ActionEvent event) {
+        
+//        for (int i = 0; i <mem ; i++) {
+//            Object object = arr[i];
+//            
+//        }
+        
+    }
+    
+    public static Date sumarDiasAFecha(Date fecha, int mes){
+      if (mes==0) return fecha;
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(fecha); 
+      calendar.add(Calendar.MONTH, mes);  
+        System.err.println(calendar.getTime());
+      return calendar.getTime(); 
+}
 
 }
