@@ -60,4 +60,22 @@ public class AccionesController implements Initializable {
         window.show();
     }
 
+    @FXML
+    private void OnActionBtnControl(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(App.class.getResource("ControlCenso.fxml"));
+        Scene creacionDocs = new Scene(root);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(creacionDocs);
+        window.show();
+    }
+
+    @FXML
+    private void OnActionBtnSalir(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(App.class.getResource("Dashboard.fxml"));
+        Scene creacionDocs = new Scene(root);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(creacionDocs);
+        window.show();
+    }
+
 }

@@ -6,6 +6,8 @@
 package org.una.cliente_examen.controllers;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -56,15 +58,6 @@ public class AgregarInfoController implements Initializable {
     private Label lblTituloPregunta;
     @FXML
     private ComboBox<String> cbxEditable;
-    private TextField txtId;
-
-    private List<ProvinciasDTO> Listprovincias;
-    private List<CantonesDTO> Listcanton;
-    private List<DistritosDTO> Listdistritos;
-    private List<UnidadesDTO> Listunidades;
-    private List<TiposDTO> Listtipos;
-    private ProvinciaService provinica;
-    String PalabraIdentificadora = "";
     @FXML
     private Label lblArea;
     @FXML
@@ -73,6 +66,18 @@ public class AgregarInfoController implements Initializable {
     private Label lblpoblacion;
     @FXML
     private TextField txtpoblacion;
+    @FXML
+    private Label lblPreguntaTipo;
+    @FXML
+    private ComboBox<String> cbxTipos;
+
+    private List<ProvinciasDTO> Listprovincias;
+    private List<CantonesDTO> Listcanton;
+    private List<DistritosDTO> Listdistritos;
+    private List<UnidadesDTO> Listunidades;
+    private List<TiposDTO> Listtipos;
+    private ProvinciaService provinica;
+    String PalabraIdentificadora = "";
 
     /**
      * Initializes the controller class.
@@ -91,6 +96,8 @@ public class AgregarInfoController implements Initializable {
         } catch (InterruptedException | ExecutionException | IOException ex) {
             Logger.getLogger(AgregarInfoController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.cbxTipos.setDisable(true);
+        this.lblPreguntaTipo.setDisable(true);
         this.cbxEditable.setDisable(true);
         this.lblTituloPregunta.setDisable(true);
         this.lblArea.setDisable(true);
@@ -109,6 +116,8 @@ public class AgregarInfoController implements Initializable {
         if ("Provincia".equals(this.PalabraIdentificadora)) {
             this.lblObjetoAgregar.setText("PROVINCIA");
             this.cbxEditable.setDisable(true);
+            this.cbxTipos.setDisable(true);
+            this.lblPreguntaTipo.setDisable(true);
             this.lblTituloPregunta.setDisable(true);
             this.lblArea.setDisable(true);
             this.lblpoblacion.setDisable(true);
@@ -119,6 +128,8 @@ public class AgregarInfoController implements Initializable {
         if ("Cantón".equals(this.PalabraIdentificadora)) {
             this.lblObjetoAgregar.setText("CANTÓN");
             this.lblTituloPregunta.setDisable(false);
+            this.cbxTipos.setDisable(true);
+            this.lblPreguntaTipo.setDisable(true);
             this.cbxEditable.setDisable(false);
             this.lblArea.setDisable(true);
             this.lblpoblacion.setDisable(true);
@@ -132,34 +143,40 @@ public class AgregarInfoController implements Initializable {
 
         }
 
-        if ("Distrito".equals(
-                this.PalabraIdentificadora)) {
+        if ("Distrito".equals(this.PalabraIdentificadora)) {
             this.lblObjetoAgregar.setText("DISTRITO");
             this.lblTituloPregunta.setDisable(false);
+            this.cbxTipos.setDisable(true);
+            this.lblPreguntaTipo.setDisable(true);
             this.cbxEditable.setDisable(false);
             this.lblArea.setDisable(true);
             this.lblpoblacion.setDisable(true);
             this.txtarea.setDisable(true);
             this.txtpoblacion.setDisable(true);
             this.cbxEditable.getItems().clear();
-            for (int i = 0; i < this.Listprovincias.size(); i++) {
+            for (int i = 0; i < this.Listcanton.size(); i++) {
                 this.cbxEditable.getItems().addAll(this.Listcanton.get(i).getNombre());
-                this.lblTituloPregunta.setText("Selecciones una cantón:");
+                this.lblTituloPregunta.setText("Selecciones un cantón:");
             }
 
         }
 
-        if ("Unidad".equals(
-                this.PalabraIdentificadora)) {
+        if ("Unidad".equals(this.PalabraIdentificadora)) {
             this.lblObjetoAgregar.setText("UNIDAD");
             this.lblTituloPregunta.setDisable(false);
             this.cbxEditable.setDisable(false);
+            this.cbxTipos.setDisable(false);
+            this.lblPreguntaTipo.setDisable(false);
             this.lblArea.setDisable(false);
             this.lblpoblacion.setDisable(false);
             this.txtarea.setDisable(false);
             this.txtpoblacion.setDisable(false);
             this.cbxEditable.getItems().clear();
-            for (int i = 0; i < this.Listprovincias.size(); i++) {
+            for (int i = 0; i < this.Listdistritos.size(); i++) {
+                for (int j = 0; j < this.Listtipos.size(); j++) {
+                    this.cbxTipos.getItems().addAll(this.Listtipos.get(j).getNombre());
+                    this.lblPreguntaTipo.setText("Selecciones un Tipo:");
+                }
                 this.cbxEditable.getItems().addAll(this.Listdistritos.get(i).getNombre());
                 this.lblTituloPregunta.setText("Selecciones una distrito:");
             }
@@ -167,6 +184,10 @@ public class AgregarInfoController implements Initializable {
 
         if ("Tipo".equals(this.PalabraIdentificadora)) {
             this.lblObjetoAgregar.setText("TIPO");
+            this.lblTituloPregunta.setDisable(true);
+            this.cbxEditable.setDisable(true);
+            this.cbxTipos.setDisable(true);
+            this.lblPreguntaTipo.setDisable(true);
             this.lblArea.setDisable(true);
             this.lblpoblacion.setDisable(true);
             this.txtarea.setDisable(true);
@@ -206,7 +227,8 @@ public class AgregarInfoController implements Initializable {
     }
 
     @FXML
-    private void OnActionCbxInfo(ActionEvent event) {
+    private void OnActionCbxInfo(ActionEvent event
+    ) {
         this.PalabraIdentificadora = this.cbxItems.getValue();
         this.IdentificadorDeInfo();
     }
@@ -240,7 +262,6 @@ public class AgregarInfoController implements Initializable {
             ProvinciasDTO newprovincia = new ProvinciasDTO();
             newprovincia.setNombre(this.txtNombre.getText());
             newprovincia.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
-            newprovincia.setId(Long.valueOf(this.txtId.getText()));
             ProvinciaService.getInstance().add(newprovincia);
             this.MensajeDeExito();
 
@@ -286,9 +307,13 @@ public class AgregarInfoController implements Initializable {
                     }
                 }
             }
+            Double Areaconvert = Double.valueOf(this.txtarea.getText());
+            Long Poblacionconvert = Long.parseLong(this.txtpoblacion.getText());
             newunidad.setNombre(this.txtNombre.getText());
             newunidad.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
             newunidad.setDistrito(distritodcapturado);
+            newunidad.setArea(BigDecimal.valueOf(Areaconvert));
+            newunidad.setPoblacion(BigInteger.valueOf(Poblacionconvert));
             newunidad.setTipos(tipocapturado);
             UnidadService.getInstance().add(newunidad);
             this.MensajeDeExito();
