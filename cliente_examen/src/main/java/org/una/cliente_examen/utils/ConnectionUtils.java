@@ -19,6 +19,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.una.cliente_examen.dto.CantonesDTO;
+import org.una.cliente_examen.dto.ClienteConMembresiaDTO;
 import org.una.cliente_examen.dto.ClienteDTO;
 import org.una.cliente_examen.dto.DistritosDTO;
 import org.una.cliente_examen.dto.ProvinciasDTO;
@@ -36,6 +37,26 @@ public class ConnectionUtils {
     public static <T> List<ClienteDTO> ListFromConnection(String urlstring, Class<T> type) throws MalformedURLException, IOException {
         Gson gson = new Gson();
         Type listtype = new TypeToken<ArrayList<ClienteDTO>>() {
+        }.getType();
+
+        URL url = new URL(urlstring);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("Accept", "application/json");
+        try ( BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            return gson.fromJson(response.toString(), listtype);
+
+        }
+    }
+    
+    public static <T> List<ClienteConMembresiaDTO> ListFromConnectionClienteMembresia(String urlstring, Class<T> type) throws MalformedURLException, IOException {
+        Gson gson = new Gson();
+        Type listtype = new TypeToken<ArrayList<ClienteConMembresiaDTO>>() {
         }.getType();
 
         URL url = new URL(urlstring);
