@@ -225,6 +225,8 @@ public class ControlCobrosController implements Initializable {
 
     }
 
+    
+    
     @FXML
     private void Ayuda(ActionEvent event) {
         
@@ -239,7 +241,7 @@ public class ControlCobrosController implements Initializable {
            "2-Presionando doble click sobre la cedula del cliente y luego sobre membresia\n"
           + "se obtendra la informacion de la membresia.\n" +
           "\n"+
-"          3-Al presionar el boton de de Generar cobros, estos se realizaran de manera automatica desde la base de datos\n"
+"         3-Al presionar el boton de de Generar cobros, estos se realizaran de manera automatica desde la base de datos\n"
                 + "y se observaran por medio de un arbol jerarquico en la parte izquierda de la pantalla.");
         alert.show();
         cargarTreeView();
