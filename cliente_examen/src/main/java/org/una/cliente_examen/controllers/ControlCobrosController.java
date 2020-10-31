@@ -7,8 +7,8 @@ package org.una.cliente_examen.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,31 +18,31 @@ import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.una.cliente_examen.App;
 import org.una.cliente_examen.dto.ClienteConMembresiaDTO;
 import org.una.cliente_examen.dto.ClienteDTO;
+import org.una.cliente_examen.dto.CobroPendienteDTO;
 import org.una.cliente_examen.dto.MembresiaDTO;
 import org.una.cliente_examen.service.ClienteConMembresiaService;
 import org.una.cliente_examen.service.ClienteService;
+import org.una.cliente_examen.service.CobroPendienteService;
 import org.una.cliente_examen.service.MembresiaService;
 
 /**
@@ -55,7 +55,9 @@ public class ControlCobrosController implements Initializable {
     private List<ClienteDTO> clientelist = new ArrayList<ClienteDTO>();
     private List<ClienteConMembresiaDTO> clientemembresialist = new ArrayList<ClienteConMembresiaDTO>();
     private List<MembresiaDTO> membresialist = new ArrayList<MembresiaDTO>();
-    
+    private List<CobroPendienteDTO> cobropendientelist = new ArrayList<CobroPendienteDTO>();
+    private CobroPendienteDTO cobroDTO = new CobroPendienteDTO();
+    private CobroPendienteService cobroPendienteService = new CobroPendienteService();
     @FXML
     private TreeView<String> tviewControlCobros;
     @FXML
@@ -81,20 +83,14 @@ public class ControlCobrosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        try {
-            cargarTreeView();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ExecutionException ex) {
-            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      
+        cargarTreeView();
+        
         eventoTreeItem();
 
     }
 
-    public void cargarTreeView() throws InterruptedException, ExecutionException, IOException {
+    public void cargarTreeView()  {
         try {
             clientelist = ClienteService.getInstance().getAll();
             System.out.println(clientelist.toString());
@@ -106,28 +102,43 @@ public class ControlCobrosController implements Initializable {
             Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        clientemembresialist = ClienteConMembresiaService.getInstance().getAll();
+        try {
+            clientemembresialist = ClienteConMembresiaService.getInstance().getAll();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
       
+        
+        try {
+            cobropendientelist = CobroPendienteService.getInstance().getAll();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 
-//        TreeItem<String> root = new TreeItem<>("Clientes con membresia");
-////          root.setGraphic(imgroot);
-//        root.setExpanded(false);
-//        tviewControlCobros.setRoot(root);
-//        for (int i = 0; i < clientelist.size(); i++) {
-//
-//            TreeItem<String> item = new TreeItem<>(clientelist.get(i).getCedula());
-//            root.getChildren().add(item);
-//
-//        }
         TreeItem<String> root = new TreeItem<>("Clientes con membresia");
         root.setExpanded(false);
         for (int i = 0; i < clientemembresialist.size(); i++) {
             TreeItem<String> root2 = new TreeItem<>(clientemembresialist.get(i).getCliente().getCedula());
            
                
-                    TreeItem<String> item = new TreeItem<>("Membresia");
-                    
-                    root2.getChildren().addAll(item);
+                    TreeItem<String> root3 = new TreeItem<>("Membresia");
+                    for (int k = 0; k < cobropendientelist.size(); k++) {
+                        if(clientemembresialist.get(i).getMembresia().getId() == cobropendientelist.get(k).getMembresia_id().getId()){
+                            TreeItem<String> item = new TreeItem<>("Cobro periodo: "+String.valueOf(cobropendientelist.get(k).getPeriodo()));
+                            root3.getChildren().addAll(item);
+                        }
+                       
+                    }
+                    root2.getChildren().addAll(root3);
                 
             
             root.getChildren().add(root2);
@@ -216,19 +227,149 @@ public class ControlCobrosController implements Initializable {
 
     @FXML
     private void Ayuda(ActionEvent event) {
+        
+         Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+        alert.setTitle("Mensaje");
+        alert.setHeaderText("¡Bienvenido al sistema de AYUDA!\n" +
+          "\n"+
+"       1-En la esquina izquierda de la pantalla aparece una serie de opciones\n"
+        + "Clientes con membresia: Despliega los clientes con membresias.\n" +
+         "Membresia despliega todos los cobros pendientes correspondientes a dicha membresia.\n" +
+          "\n"+
+           "2-Presionando doble click sobre la cedula del cliente y luego sobre membresia\n"
+          + "se obtendra la informacion de la membresia.\n" +
+          "\n"+
+"          3-Al presionar el boton de de Generar cobros, estos se realizaran de manera automatica desde la base de datos\n"
+                + "y se observaran por medio de un arbol jerarquico en la parte izquierda de la pantalla.");
+        alert.show();
+        cargarTreeView();
     }
-
+    
     @FXML
     private void GenerarCobros(ActionEvent event) {
+       MembresiaDTO membresiaACobrar = new MembresiaDTO();
+        try {
+            membresialist = MembresiaService.getInstance().getAll();
+            
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-//        for (int i = 0; i <mem ; i++) {
-//            Object object = arr[i];
-//            
-//        }
+        
+        int mesesporcobrar;
+        Date fecha_inscripcion;
+        double monto;
+        
+        for (int i = 0; i <membresialist.size() ; i++) {
+            if("Bimensual".equals(membresialist.get(i).getPeriosidad())){
+
+                mesesporcobrar = 6;
+                fecha_inscripcion = membresialist.get(i).getFecha_inscripcion();
+                monto = membresialist.get(i).getMonto()/6;
+                membresiaACobrar = membresialist.get(i);
+                GenerarCobrosFase2(2, 6, monto,fecha_inscripcion,membresiaACobrar,membresialist.get(i).getDescripcion());
+                
+            }
+            
+            if("Mensual".equals(membresialist.get(i).getPeriosidad())){
+
+                mesesporcobrar = 12;
+                fecha_inscripcion = membresialist.get(i).getFecha_inscripcion();
+                monto = membresialist.get(i).getMonto()/12;
+                membresiaACobrar = membresialist.get(i);
+                GenerarCobrosFase2(1, 12, monto,fecha_inscripcion,membresiaACobrar,membresialist.get(i).getDescripcion());
+                
+            }
+            
+            if("Trimestral".equals(membresialist.get(i).getPeriosidad())){
+
+                mesesporcobrar = 4;
+                fecha_inscripcion = membresialist.get(i).getFecha_inscripcion();
+                monto = membresialist.get(i).getMonto()/4;
+                membresiaACobrar = membresialist.get(i);
+                GenerarCobrosFase2(3, 4, monto,fecha_inscripcion,membresiaACobrar,membresialist.get(i).getDescripcion());
+                
+            }
+            if("Cuatrimensual".equals(membresialist.get(i).getPeriosidad())){
+
+                mesesporcobrar = 3;
+                fecha_inscripcion = membresialist.get(i).getFecha_inscripcion();
+                monto = membresialist.get(i).getMonto()/3;
+                membresiaACobrar = membresialist.get(i);
+                GenerarCobrosFase2(4, 3, monto,fecha_inscripcion,membresiaACobrar,membresialist.get(i).getDescripcion());
+                
+            }
+            
+            if("Semestral".equals(membresialist.get(i).getPeriosidad())){
+
+                mesesporcobrar = 2;
+                fecha_inscripcion = membresialist.get(i).getFecha_inscripcion();
+                monto = membresialist.get(i).getMonto()/2;
+                membresiaACobrar = membresialist.get(i);
+                GenerarCobrosFase2(6, 2, monto,fecha_inscripcion,membresiaACobrar,membresialist.get(i).getDescripcion());
+                
+            }
+            
+             if("Anual".equals(membresialist.get(i).getPeriosidad())){
+
+                mesesporcobrar = 1;
+                fecha_inscripcion = membresialist.get(i).getFecha_inscripcion();
+                monto = membresialist.get(i).getMonto();
+                membresiaACobrar = membresialist.get(i);
+                GenerarCobrosFase2(1, 1, monto,fecha_inscripcion,membresiaACobrar,membresialist.get(i).getDescripcion());
+                
+            }
+            
+        }
+        
+         Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+        alert.setTitle("Mensaje");
+        alert.setHeaderText("¡Se ha generado los COBROS PENDIENTES de manera EXITOSA!");
+        alert.show();
+        cargarTreeView();
         
     }
     
-    public static Date sumarDiasAFecha(Date fecha, int mes){
+    public void GenerarCobrosFase2(int frecuenciaPago, int cantidadMeses, double monto, Date fechaInscripcion,MembresiaDTO membresiaPorCobrar ,String tipoServicio){
+        int año;
+        int periodo = 1;
+        Date fechaActual;
+        fechaActual= Date.from(Instant.now());
+       
+        int numero = 0;
+        
+        
+        
+        for (int i = 0; i < cantidadMeses; i++) {
+            numero = numero + frecuenciaPago;
+            cobroDTO.setAño(fechaActual.getYear());
+            cobroDTO.setFecha_vencimiento(sumarMesesAFecha(fechaInscripcion, numero));
+            cobroDTO.setMonto(monto); 
+            cobroDTO.setMembresia_id(membresiaPorCobrar);          
+            cobroDTO.setPeriodo(periodo);
+            cobroDTO.setTipo_de_servicio(tipoServicio);
+            
+            try {
+                cobroPendienteService.add(cobroDTO);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ExecutionException ex) {
+                Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+         periodo++;
+        }
+        
+       
+    }
+    
+    public static Date sumarMesesAFecha(Date fecha, int mes){
       if (mes==0) return fecha;
       Calendar calendar = Calendar.getInstance();
       calendar.setTime(fecha); 
@@ -236,5 +377,7 @@ public class ControlCobrosController implements Initializable {
         System.err.println(calendar.getTime());
       return calendar.getTime(); 
 }
+
+ 
 
 }

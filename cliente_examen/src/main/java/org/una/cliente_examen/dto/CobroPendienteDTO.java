@@ -12,22 +12,24 @@ import java.util.Date;
  * @author Andres
  */
 public class CobroPendienteDTO {
-    private Long id;
+     private Long id;
     private int año;
     private int periodo;
     private Date fecha_vencimiento;
     private double monto;
+    private String tipo_de_servicio;
     private MembresiaDTO membresia_id;
 
     public CobroPendienteDTO() {
     }
 
-    public CobroPendienteDTO(Long id, int año, int periodo, Date fecha_vencimiento, double monto, MembresiaDTO membresia_id) {
+    public CobroPendienteDTO(Long id, int año, int periodo, Date fecha_vencimiento, double monto, String tipo_de_servicio, MembresiaDTO membresia_id) {
         this.id = id;
         this.año = año;
         this.periodo = periodo;
         this.fecha_vencimiento = fecha_vencimiento;
         this.monto = monto;
+        this.tipo_de_servicio = tipo_de_servicio;
         this.membresia_id = membresia_id;
     }
 
@@ -71,6 +73,14 @@ public class CobroPendienteDTO {
         this.monto = monto;
     }
 
+    public String getTipo_de_servicio() {
+        return tipo_de_servicio;
+    }
+
+    public void setTipo_de_servicio(String tipo_de_servicio) {
+        this.tipo_de_servicio = tipo_de_servicio;
+    }
+
     public MembresiaDTO getMembresia_id() {
         return membresia_id;
     }
@@ -78,6 +88,7 @@ public class CobroPendienteDTO {
     public void setMembresia_id(MembresiaDTO membresia_id) {
         this.membresia_id = membresia_id;
     }
+
     
     
     

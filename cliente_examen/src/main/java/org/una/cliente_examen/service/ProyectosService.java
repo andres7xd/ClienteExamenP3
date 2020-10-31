@@ -36,7 +36,7 @@ public class ProyectosService {
     }
 
     public void modify(Long id) throws InterruptedException, ExecutionException, IOException {
-        ConnectionUtils.ObjectToConnectionPut(urlModify, id);
+        ConnectionUtils.ObjectToConnectionModify(urlModify, id);
     }
 
     public void delete(Long id) throws InterruptedException, ExecutionException, IOException {
