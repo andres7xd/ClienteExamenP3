@@ -12,20 +12,29 @@ import java.util.Date;
  * @author Andres
  */
 public class MembresiaDTO {
-    
-     private String periosidad;
+    private Long id;
+    private String periosidad;
     private double monto;
     private String descripcion;
     private Date fecha_inscripcion;
 
-    public MembresiaDTO(String periosidad, double monto, String descripcion, Date fecha_inscripcion) {
+    public MembresiaDTO() {
+    }
+
+    public MembresiaDTO(Long id, String periosidad, double monto, String descripcion, Date fecha_inscripcion) {
+        this.id = id;
         this.periosidad = periosidad;
         this.monto = monto;
         this.descripcion = descripcion;
         this.fecha_inscripcion = fecha_inscripcion;
     }
 
-    public MembresiaDTO() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPeriosidad() {
