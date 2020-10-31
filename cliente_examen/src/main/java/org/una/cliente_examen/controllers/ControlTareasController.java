@@ -300,47 +300,39 @@ public class ControlTareasController implements Initializable {
 
     @FXML
     private void actionEliminarProyecto(ActionEvent event) {
-//        ProyectosService proyectosService = new ProyectosService();
-//        System.out.println("aaaaaaaaaaaaaaaa" + proyectosDTO.getId());
-//        if (proyectosDTO != null) {
-//            try {
-//                proyectosService.delete(proyectosDTO.getId());
-//                Alert info = new Alert(Alert.AlertType.CONFIRMATION);
-//                info.setTitle("Mensaje");
-//                info.setContentText("El proyecto se eliminó correctamente");
-//                info.showAndWait();
-//                LlenarTreeView();
-//            } catch (Exception e) {
-//                Alert info = new Alert(Alert.AlertType.CONFIRMATION);
-//                info.setTitle("Error");
-//                info.setContentText("No ha seleccionado un proyecto");
-//                info.showAndWait();
-//                LlenarTreeView();
-//            }
-//        }
+        
     }
 
     @FXML
     private void actionModificarTarea(ActionEvent event) throws IOException, InterruptedException, ExecutionException {
 
-        date = java.sql.Date.valueOf(dpFechaInicio.getValue());
-        date2 = java.sql.Date.valueOf(dpFechaFinalizacion.getValue());
+        try {
+            date = java.sql.Date.valueOf(dpFechaInicio.getValue());
+            date2 = java.sql.Date.valueOf(dpFechaFinalizacion.getValue());
 
-        tareasDTO.setDescripcion(txtDescripcion.getText());
-        tareasDTO.setFecha_inicio(date);
-        tareasDTO.setFecha_finalizacion(date2);
-        tareasDTO.setImportancia(Double.parseDouble(txtImportancia.getText()));
-        tareasDTO.setPrioridad(Double.parseDouble(txtPrioridad.getText()));
-        tareasDTO.setUrgencia(Double.parseDouble(txtUrgencia.getText()));
-        tareasDTO.setPorcentaje_avance(Double.parseDouble(txtPorcentajeAvance.getText()));
-        tareasDTO.setProyectos(proyectosDTO);
-        tareasService.modify(tareasDTO.getId(), tareasDTO);
+            tareasDTO.setDescripcion(txtDescripcion.getText());
+            tareasDTO.setFecha_inicio(date);
+            tareasDTO.setFecha_finalizacion(date2);
+            tareasDTO.setImportancia(Double.parseDouble(txtImportancia.getText()));
+            tareasDTO.setPrioridad(Double.parseDouble(txtPrioridad.getText()));
+            tareasDTO.setUrgencia(Double.parseDouble(txtUrgencia.getText()));
+            tareasDTO.setPorcentaje_avance(Double.parseDouble(txtPorcentajeAvance.getText()));
+            tareasService.modify(tareasDTO.getId(), tareasDTO);
 
-//        Parent root = FXMLLoader.load(App.class.getResource("CreacionTareas.fxml"));
-//        Scene creacionDocs = new Scene(root);
-//        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        window.setScene(creacionDocs);
-//        window.show();
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setTitle("Mensaje");
+            info.setContentText("La tarea se ha modificado correctamente");
+            info.showAndWait();
+            LlenarTreeView();
+        } catch (Exception e) {
+            
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setTitle("Error");
+            info.setContentText("La tarea no se ha podido modificar.");
+            info.showAndWait();
+            LlenarTreeView();
+        }
+
     }
 
     @FXML
