@@ -24,7 +24,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
@@ -111,7 +113,16 @@ public class ControlCobrosController implements Initializable {
         }
       
         
-
+        try {
+            cobropendientelist = CobroPendienteService.getInstance().getAll();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ExecutionException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ControlCobrosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 
         TreeItem<String> root = new TreeItem<>("Clientes con membresia");
         root.setExpanded(false);
@@ -119,9 +130,15 @@ public class ControlCobrosController implements Initializable {
             TreeItem<String> root2 = new TreeItem<>(clientemembresialist.get(i).getCliente().getCedula());
            
                
-                    TreeItem<String> item = new TreeItem<>("Membresia");
-                    
-                    root2.getChildren().addAll(item);
+                    TreeItem<String> root3 = new TreeItem<>("Membresia");
+                    for (int k = 0; k < cobropendientelist.size(); k++) {
+                        if(clientemembresialist.get(i).getMembresia().getId() == cobropendientelist.get(k).getMembresia_id().getId()){
+                            TreeItem<String> item = new TreeItem<>("Cobro periodo: "+String.valueOf(cobropendientelist.get(k).getPeriodo()));
+                            root3.getChildren().addAll(item);
+                        }
+                       
+                    }
+                    root2.getChildren().addAll(root3);
                 
             
             root.getChildren().add(root2);
@@ -210,6 +227,22 @@ public class ControlCobrosController implements Initializable {
 
     @FXML
     private void Ayuda(ActionEvent event) {
+        
+         Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+        alert.setTitle("Mensaje");
+        alert.setHeaderText("¡Bienvenido al sistema de AYUDA!\n" +
+          "\n"+
+"       1-En la esquina izquierda de la pantalla aparece una serie de opciones\n"
+        + "Clientes con membresia: Despliega los clientes con membresias.\n" +
+         "Membresia despliega todos los cobros pendientes correspondientes a dicha membresia.\n" +
+          "\n"+
+           "2-Presionando doble click sobre la cedula del cliente y luego sobre membresia\n"
+          + "se obtendra la informacion de la membresia.\n" +
+          "\n"+
+"          3-Al presionar el boton de de Generar cobros, estos se realizaran de manera automatica desde la base de datos\n"
+                + "y se observaran por medio de un arbol jerarquico en la parte izquierda de la pantalla.");
+        alert.show();
+        cargarTreeView();
     }
     
     @FXML
@@ -293,6 +326,12 @@ public class ControlCobrosController implements Initializable {
             
         }
         
+         Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+        alert.setTitle("Mensaje");
+        alert.setHeaderText("¡Se ha generado los COBROS PENDIENTES de manera EXITOSA!");
+        alert.show();
+        cargarTreeView();
+        
     }
     
     public void GenerarCobrosFase2(int frecuenciaPago, int cantidadMeses, double monto, Date fechaInscripcion,MembresiaDTO membresiaPorCobrar ,String tipoServicio){
@@ -326,6 +365,8 @@ public class ControlCobrosController implements Initializable {
            
          periodo++;
         }
+        
+       
     }
     
     public static Date sumarMesesAFecha(Date fecha, int mes){
