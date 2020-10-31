@@ -7,7 +7,6 @@ package org.una.cliente_examen.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -84,57 +83,6 @@ public class CreacionTareasController implements Initializable {
         }
         cbxProyectos.setItems(FXCollections.observableArrayList(proyectolist));
 
-    }
-
-    public static LocalDate parsearFecha(String fecha) {
-        String mes = fecha.substring(4, 7);
-        String mesNum = "";
-        String dia = fecha.substring(8, 10);
-        String anno = fecha.substring(24, 28);
-        String fechaParseada = "";
-        switch (mes) {
-            case "Jan":
-                mesNum = "01";
-                break;
-            case "Feb":
-                mesNum = "02";
-                break;
-            case "Mar":
-                mesNum = "03";
-                break;
-            case "Apr":
-                mesNum = "04";
-                break;
-            case "May":
-                mesNum = "05";
-                break;
-            case "Jun":
-                mesNum = "06";
-                break;
-            case "Jul":
-                mesNum = "07";
-                break;
-            case "Aug":
-                mesNum = "08";
-                break;
-            case "Sep":
-                mesNum = "09";
-                break;
-            case "Oct":
-                mesNum = "10";
-                break;
-            case "Nov":
-                mesNum = "11";
-                break;
-            case "Dec":
-                mesNum = "12";
-                break;
-
-        }
-
-        fechaParseada = anno + "-" + mesNum + "-" + dia;
-        LocalDate localDate = LocalDate.parse(fechaParseada);
-        return localDate;
     }
 
     @FXML

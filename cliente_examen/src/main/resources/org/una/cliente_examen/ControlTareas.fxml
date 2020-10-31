@@ -15,8 +15,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="673.0" prefWidth="857.0" styleClass="anchorPadre" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.cliente_examen.controllers.ControlTareasController">
    <children>
-      <TreeView fx:id="treeViewProyectos" layoutY="-2.0" onMouseClicked="#actiontvProyectos" opacity="0.76" prefHeight="673.0" prefWidth="161.0" />
-      <Button layoutX="471.0" layoutY="40.0" mnemonicParsing="false" onAction="#actionCrearProyecto" styleClass="jfx-buttonStandard2" stylesheets="@Style.css" text="Crear un proyecto">
+      <TreeView fx:id="treeViewProyectos" layoutY="-2.0" opacity="0.76" prefHeight="673.0" prefWidth="161.0" />
+      <Button layoutX="473.0" layoutY="40.0" mnemonicParsing="false" onAction="#actionCrearProyecto" styleClass="jfx-buttonStandard2" stylesheets="@Style.css" text="Crear un proyecto">
          <font>
             <Font name="Century Gothic Bold" size="13.0" />
          </font>
@@ -24,7 +24,7 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button layoutX="623.0" layoutY="41.0" mnemonicParsing="false" onAction="#actionCrearTarea" styleClass="jfx-buttonStandard2" text="Crear una tarea">
+      <Button layoutX="619.0" layoutY="41.0" mnemonicParsing="false" onAction="#actionCrearTarea" styleClass="jfx-buttonStandard2" text="Crear una tarea">
          <font>
             <Font name="Century Gothic Bold" size="13.0" />
          </font>
@@ -32,7 +32,7 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button layoutX="521.0" layoutY="160.0" mnemonicParsing="false" onAction="#actionModificarProyecto" styleClass="jfx-buttonStandard2" stylesheets="@Style.css" text="Modificar proyecto">
+      <Button layoutX="442.0" layoutY="639.0" mnemonicParsing="false" onAction="#actionModificarTarea" styleClass="jfx-buttonStandard2" text="Modificar una tarea">
          <font>
             <Font name="Century Gothic Bold" size="13.0" />
          </font>
@@ -40,7 +40,7 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button layoutX="474.0" layoutY="80.0" mnemonicParsing="false" onAction="#actionEliminarProyecto" styleClass="jfx-buttonStandard2" stylesheets="@Style.css" text="Eliminar proyecto">
+      <Button layoutX="478.0" layoutY="160.0" mnemonicParsing="false" onAction="#actionEliminarTarea" styleClass="jfx-buttonStandard2" text="Eliminar una tarea">
          <font>
             <Font name="Century Gothic Bold" size="13.0" />
          </font>
@@ -48,82 +48,66 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button layoutX="345.0" layoutY="641.0" mnemonicParsing="false" onAction="#actionModificarTarea" styleClass="jfx-buttonStandard2" text="Modificar una tarea">
-         <font>
-            <Font name="Century Gothic Bold" size="13.0" />
-         </font>
-         <effect>
-            <InnerShadow />
-         </effect>
-      </Button>
-      <Button layoutX="624.0" layoutY="80.0" mnemonicParsing="false" onAction="#actionEliminarTarea" styleClass="jfx-buttonStandard2" text="Eliminar una tarea">
-         <font>
-            <Font name="Century Gothic Bold" size="13.0" />
-         </font>
-         <effect>
-            <InnerShadow />
-         </effect>
-      </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3d258f" height="433.0" layoutX="170.0" layoutY="203.0" opacity="0.52" stroke="BLACK" strokeType="INSIDE" width="493.0" />
-      <Label layoutX="273.0" layoutY="209.0" text="Informacion de la tarea:" textFill="#f8f5f5" underline="true">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3d258f" height="433.0" layoutX="267.0" layoutY="200.0" opacity="0.52" stroke="BLACK" strokeType="INSIDE" width="493.0" />
+      <Label layoutX="370.0" layoutY="206.0" text="Informacion de la tarea:" textFill="#f8f5f5" underline="true">
          <font>
             <Font name="Rockwell" size="28.0" />
          </font>
       </Label>
-      <Label layoutX="350.0" layoutY="265.0" text="ID:" textFill="#f8f5f5">
+      <Label layoutX="447.0" layoutY="262.0" text="ID:" textFill="#f8f5f5">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="txtId" layoutX="387.0" layoutY="262.0" prefHeight="19.0" prefWidth="134.0" />
-      <Label layoutX="283.0" layoutY="306.0" text="Descripción:" textFill="#f8f5f5">
+      <TextField fx:id="txtId" layoutX="484.0" layoutY="259.0" prefHeight="19.0" prefWidth="134.0" />
+      <Label layoutX="380.0" layoutY="303.0" text="Descripción:" textFill="#f8f5f5">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="txtDescripcion" layoutX="387.0" layoutY="303.0" prefHeight="25.0" prefWidth="268.0" />
-      <Label layoutX="257.0" layoutY="352.0" text="Fecha de inicio:" textFill="#f8f5f5">
+      <TextField fx:id="txtDescripcion" layoutX="484.0" layoutY="300.0" prefHeight="25.0" prefWidth="268.0" />
+      <Label layoutX="354.0" layoutY="349.0" text="Fecha de inicio:" textFill="#f8f5f5">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="215.0" layoutY="394.0" text="Fecha de finalización:" textFill="#f8f5f5">
+      <Label layoutX="312.0" layoutY="391.0" text="Fecha de finalización:" textFill="#f8f5f5">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="282.0" layoutY="432.0" text="Importancia:" textFill="#f8f5f5">
+      <Label layoutX="379.0" layoutY="429.0" text="Importancia:" textFill="#f8f5f5">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="305.0" layoutY="476.0" text="Prioridad:" textFill="#f8f5f5">
+      <Label layoutX="402.0" layoutY="473.0" text="Prioridad:" textFill="#f8f5f5">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="304.0" layoutY="517.0" text="Urgencia:" textFill="#f8f5f5">
+      <Label layoutX="401.0" layoutY="514.0" text="Urgencia:" textFill="#f8f5f5">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="173.0" layoutY="603.0" text="Proyecto al que pertenece:" textFill="#f8f5f5">
+      <Label layoutX="270.0" layoutY="600.0" text="Proyecto al que pertenece:" textFill="#f8f5f5">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dpFechaInicio" layoutX="387.0" layoutY="349.0" />
-      <DatePicker fx:id="dpFechaFinalizacion" layoutX="386.0" layoutY="391.0" />
-      <TextField fx:id="txtImportancia" layoutX="387.0" layoutY="429.0" prefHeight="25.0" prefWidth="268.0" />
-      <TextField fx:id="txtPrioridad" layoutX="387.0" layoutY="473.0" prefHeight="25.0" prefWidth="268.0" />
-      <TextField fx:id="txtUrgencia" layoutX="388.0" layoutY="514.0" prefHeight="25.0" prefWidth="268.0" />
-      <TextField fx:id="txtProyectoPerteneciente" layoutX="388.0" layoutY="600.0" prefHeight="25.0" prefWidth="268.0" />
-      <Label layoutX="207.0" layoutY="558.0" text="Porcentaje de avance:" textFill="#f8f5f5">
+      <DatePicker fx:id="dpFechaInicio" layoutX="484.0" layoutY="346.0" />
+      <DatePicker fx:id="dpFechaFinalizacion" layoutX="484.0" layoutY="388.0" />
+      <TextField fx:id="txtImportancia" layoutX="484.0" layoutY="426.0" prefHeight="25.0" prefWidth="268.0" />
+      <TextField fx:id="txtPrioridad" layoutX="484.0" layoutY="470.0" prefHeight="25.0" prefWidth="268.0" />
+      <TextField fx:id="txtUrgencia" layoutX="485.0" layoutY="511.0" prefHeight="25.0" prefWidth="268.0" />
+      <TextField fx:id="txtProyectoPerteneciente" layoutX="485.0" layoutY="597.0" prefHeight="25.0" prefWidth="268.0" />
+      <Label layoutX="304.0" layoutY="555.0" text="Porcentaje de avance:" textFill="#f8f5f5">
          <font>
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPorcentajeAvance" layoutX="388.0" layoutY="555.0" prefHeight="25.0" prefWidth="268.0" />
+      <TextField fx:id="txtPorcentajeAvance" layoutX="485.0" layoutY="552.0" prefHeight="25.0" prefWidth="268.0" />
       <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="188.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@iconos/cuadro%20rojo.jpg" />
@@ -169,7 +153,7 @@
             <Font name="Rockwell" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="183.0" layoutY="113.0" text="Filtro por color deporcentaje de avance:" textFill="#f8f5f5" underline="true">
+      <Label layoutX="183.0" layoutY="113.0" text="Filtro por color de porcentaje de avance:" textFill="#f8f5f5" underline="true">
          <font>
             <Font name="Rockwell" size="14.0" />
          </font>

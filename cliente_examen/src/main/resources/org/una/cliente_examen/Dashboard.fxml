@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="764.0" styleClass="anchorPadre" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.cliente_examen.controllers.DashboardController">
    <left>
       <VBox prefHeight="494.0" prefWidth="244.0" BorderPane.alignment="CENTER">
@@ -55,7 +54,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnControlMembresias" mnemonicParsing="false" onAction="#actionBtnControlMembresias" prefHeight="73.0" prefWidth="244.0" styleClass="jfx-buttonStandard2" text="Control de membresias">
+            <Button fx:id="btnControlMembresias" mnemonicParsing="false" onAction="#actionBtnControlMembresias" prefHeight="73.0" prefWidth="244.0" styleClass="jfx-buttonStandard2" text="Control de cobros">
                <effect>
                   <InnerShadow />
                </effect>

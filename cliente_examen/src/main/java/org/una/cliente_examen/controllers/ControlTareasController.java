@@ -39,7 +39,6 @@ import org.una.cliente_examen.dto.ProyectosDTO;
 import org.una.cliente_examen.dto.TareasDTO;
 import org.una.cliente_examen.service.ProyectosService;
 import org.una.cliente_examen.service.TareasService;
-import org.una.cliente_examen.utils.AppContext;
 
 /**
  * FXML Controller class
@@ -83,8 +82,6 @@ public class ControlTareasController implements Initializable {
 
     TareasService tareasService = new TareasService();
 
-    private ImageView imgV;
-
     Date date = new Date();
     Date date2 = new Date();
 
@@ -96,6 +93,7 @@ public class ControlTareasController implements Initializable {
     TextField txtProyectos = new TextField();
     TextField txtTareas = new TextField();
     TextField txtPadre = new TextField();
+
     @FXML
     private ComboBox<String> cbxFiltroColores;
 
@@ -163,10 +161,6 @@ public class ControlTareasController implements Initializable {
             root1.getChildren().add(root);
         }
         treeViewProyectos.setRoot(root1);
-    }
-
-    public void refrescarTreeView() {
-        LlenarTreeView();
     }
 
     public void EventoTreeItem() {
@@ -274,6 +268,7 @@ public class ControlTareasController implements Initializable {
 
     @FXML
     private void actionCrearProyecto(ActionEvent event) throws IOException {
+
         Parent root = FXMLLoader.load(App.class.getResource("CreacionProyectos.fxml"));
         Scene creacionDocs = new Scene(root);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -283,24 +278,12 @@ public class ControlTareasController implements Initializable {
 
     @FXML
     private void actionCrearTarea(ActionEvent event) throws IOException {
-        AppContext.getInstance().set("tareasDTO", tareasDTO);
-        AppContext.getInstance().set("ed", "insertar");
 
         Parent root = FXMLLoader.load(App.class.getResource("CreacionTareas.fxml"));
         Scene creacionDocs = new Scene(root);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(creacionDocs);
         window.show();
-    }
-
-    @FXML
-    private void actionModificarProyecto(ActionEvent event) throws IOException {
-
-    }
-
-    @FXML
-    private void actionEliminarProyecto(ActionEvent event) {
-        
     }
 
     @FXML
@@ -318,14 +301,12 @@ public class ControlTareasController implements Initializable {
             tareasDTO.setUrgencia(Double.parseDouble(txtUrgencia.getText()));
             tareasDTO.setPorcentaje_avance(Double.parseDouble(txtPorcentajeAvance.getText()));
             tareasService.modify(tareasDTO.getId(), tareasDTO);
-
             Alert info = new Alert(Alert.AlertType.INFORMATION);
             info.setTitle("Mensaje");
             info.setContentText("La tarea se ha modificado correctamente");
             info.showAndWait();
             LlenarTreeView();
         } catch (Exception e) {
-            
             Alert info = new Alert(Alert.AlertType.INFORMATION);
             info.setTitle("Error");
             info.setContentText("La tarea no se ha podido modificar.");
@@ -353,11 +334,6 @@ public class ControlTareasController implements Initializable {
                 info.showAndWait();
             }
         }
-    }
-
-    @FXML
-    private void actiontvProyectos(MouseEvent event) {
-
     }
 
     @FXML
