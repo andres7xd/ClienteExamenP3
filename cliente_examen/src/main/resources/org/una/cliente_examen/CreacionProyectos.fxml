@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="anchorPadre" stylesheets="@Style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.una.cliente_examen.controllers.CreacionProyectosController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="anchorPadre" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.cliente_examen.controllers.CreacionProyectosController">
    <children>
       <Label layoutX="202.0" layoutY="20.0" text="Proyecto" textFill="#f8f5f5" underline="true">
          <font>
@@ -20,7 +19,7 @@
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="txtDescripcion" layoutX="253.0" layoutY="161.0" prefHeight="84.0" prefWidth="290.0" />
+      <TextField fx:id="txtDescripcion" layoutX="249.0" layoutY="161.0" prefHeight="25.0" prefWidth="341.0" />
       <Button layoutX="125.0" layoutY="304.0" mnemonicParsing="false" onAction="#actionCrearProyecto" styleClass="jfx-buttonStandard2" stylesheets="@Style.css" text="Generar Proyecto">
          <font>
             <Font name="Century Gothic Bold" size="20.0" />
@@ -34,7 +33,7 @@
             <Font name="Century Gothic Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="txtNombre" layoutX="253.0" layoutY="114.0" prefHeight="25.0" prefWidth="290.0" />
+      <TextField fx:id="txtNombre" layoutX="250.0" layoutY="114.0" prefHeight="25.0" prefWidth="290.0" />
       <Button fx:id="actionbtnAtras" layoutX="431.0" layoutY="304.0" mnemonicParsing="false" onAction="#actionAtras" styleClass="jfx-buttonStandard2" stylesheets="@Style.css" text="Atrás">
          <font>
             <Font name="Century Gothic Bold" size="20.0" />
