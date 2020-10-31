@@ -44,7 +44,7 @@ public class AccionesController implements Initializable {
 
     @FXML
     private void OnActionBtnEditar(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(App.class.getResource("EditarInfo.fxml"));
+        Parent root = FXMLLoader.load(App.class.getResource("EditarInformacionEspecifica.fxml"));
         Scene creacionDocs = new Scene(root);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(creacionDocs);

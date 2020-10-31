@@ -173,12 +173,12 @@ public class AgregarInfoController implements Initializable {
             this.txtpoblacion.setDisable(false);
             this.cbxEditable.getItems().clear();
             for (int i = 0; i < this.Listdistritos.size(); i++) {
-                for (int j = 0; j < this.Listtipos.size(); j++) {
-                    this.cbxTipos.getItems().addAll(this.Listtipos.get(j).getNombre());
-                    this.lblPreguntaTipo.setText("Selecciones un Tipo:");
-                }
                 this.cbxEditable.getItems().addAll(this.Listdistritos.get(i).getNombre());
                 this.lblTituloPregunta.setText("Selecciones una distrito:");
+            }
+            for (int j = 0; j < this.Listtipos.size(); j++) {
+                this.cbxTipos.getItems().addAll(this.Listtipos.get(j).getNombre());
+                this.lblPreguntaTipo.setText("Selecciones un Tipo:");
             }
         }
 
@@ -227,8 +227,7 @@ public class AgregarInfoController implements Initializable {
     }
 
     @FXML
-    private void OnActionCbxInfo(ActionEvent event
-    ) {
+    private void OnActionCbxInfo(ActionEvent event ) {
         this.PalabraIdentificadora = this.cbxItems.getValue();
         this.IdentificadorDeInfo();
     }
@@ -258,6 +257,7 @@ public class AgregarInfoController implements Initializable {
         CantonesDTO cantoncapturada = new CantonesDTO();
         DistritosDTO distritodcapturado = new DistritosDTO();
         TiposDTO tipocapturado = new TiposDTO();
+
         if ("Provincia".equals(this.PalabraIdentificadora)) {
             ProvinciasDTO newprovincia = new ProvinciasDTO();
             newprovincia.setNombre(this.txtNombre.getText());
@@ -298,12 +298,14 @@ public class AgregarInfoController implements Initializable {
         if ("Unidad".equals(this.PalabraIdentificadora)) {
             UnidadesDTO newunidad = new UnidadesDTO();
             for (int i = 0; i < this.Listdistritos.size(); i++) {
+                if (this.Listdistritos.get(i).getNombre() == this.cbxEditable.getValue()) {
+                    distritodcapturado = this.Listdistritos.get(i);
+                         System.out.println(distritodcapturado);
+                }
                 for (int j = 0; j < this.Listtipos.size(); j++) {
-                    if (this.Listdistritos.get(i).getNombre() == this.cbxEditable.getValue()
-                            && this.Listtipos.get(j).getNombre() == this.cbxEditable.getValue()) {
-                        distritodcapturado = this.Listdistritos.get(i);
+                    if (this.Listtipos.get(j).getNombre() == this.cbxTipos.getValue()) {
                         tipocapturado = this.Listtipos.get(j);
-                        System.out.println(distritodcapturado);
+                        System.out.println(tipocapturado);
                     }
                 }
             }
@@ -320,7 +322,9 @@ public class AgregarInfoController implements Initializable {
             this.LimpiarCampos();
 
         }
-        if ("Tipo".equals(this.PalabraIdentificadora)) {
+
+        if ("Tipo".equals(
+                this.PalabraIdentificadora)) {
             TiposDTO newtipo = new TiposDTO();
             newtipo.setNombre(this.txtNombre.getText());
             newtipo.setCodigo(Integer.parseInt(this.txtCodigo.getText()));
@@ -343,6 +347,8 @@ public class AgregarInfoController implements Initializable {
     public void LimpiarCampos() {
         this.txtNombre.setText("");
         this.txtCodigo.setText("");
+        this.txtarea.setText("");
+        this.txtpoblacion.setText("");
 
     }
 }

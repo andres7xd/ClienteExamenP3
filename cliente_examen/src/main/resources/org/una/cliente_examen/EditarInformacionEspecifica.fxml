@@ -2,16 +2,17 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.una.cliente_examen.controllers.EditarInformacionEspecificaController">
+<AnchorPane id="AnchorPane" prefHeight="553.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.cliente_examen.controllers.EditarInformacionEspecificaController">
    <children>
-      <VBox layoutX="107.0" layoutY="64.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="223.0" layoutY="64.0" prefHeight="553.0" prefWidth="544.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="223.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label prefHeight="17.0" prefWidth="57.0" text="EDITAR">
                <VBox.margin>
@@ -23,22 +24,42 @@
             </Label>
             <Label text="Nombre:">
                <VBox.margin>
-                  <Insets left="50.0" top="30.0" />
+                  <Insets left="100.0" top="30.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="txtNombre">
+            <TextField fx:id="txtNombre" prefHeight="25.0" prefWidth="194.0">
                <VBox.margin>
-                  <Insets left="100.0" right="300.0" />
+                  <Insets left="150.0" right="200.0" top="10.0" />
                </VBox.margin>
             </TextField>
             <Label layoutX="60.0" layoutY="80.0" text="Código:">
                <VBox.margin>
-                  <Insets left="50.0" top="40.0" />
+                  <Insets left="100.0" top="30.0" />
                </VBox.margin>
             </Label>
             <TextField fx:id="txtCodigo" layoutX="110.0" layoutY="97.0">
                <VBox.margin>
-                  <Insets left="100.0" right="300.0" />
+                  <Insets left="150.0" right="200.0" top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label layoutX="430.0" layoutY="162.0" text="Área:">
+               <VBox.margin>
+                  <Insets left="100.0" top="30.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="txtarea" layoutX="460.0" layoutY="189.0">
+               <VBox.margin>
+                  <Insets left="150.0" right="200.0" top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label layoutX="10.0" layoutY="214.0" text="Población:">
+               <VBox.margin>
+                  <Insets left="100.0" top="30.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="txtpoblacion" layoutX="10.0" layoutY="231.0">
+               <VBox.margin>
+                  <Insets left="150.0" right="200.0" top="10.0" />
                </VBox.margin>
             </TextField>
             <Button mnemonicParsing="false" onAction="#OnActionBtnGuardar" prefHeight="40.0" prefWidth="71.0" text="GUARDAR">
@@ -46,11 +67,35 @@
                   <Insets left="200.0" top="100.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#OnActionBtnSalir" prefHeight="35.0" prefWidth="77.0" text="SALIR">
+            <Button mnemonicParsing="false" onAction="#OnActionBtnSalir" prefHeight="25.0" prefWidth="85.0" text="SALIR">
                <VBox.margin>
-                  <Insets bottom="5.0" left="520.0" top="30.0" />
+                  <Insets bottom="5.0" left="400.0" top="30.0" />
                </VBox.margin>
             </Button>
+         </children>
+      </VBox>
+      <VBox layoutX="123.0" layoutY="186.0" prefHeight="553.0" prefWidth="222.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="¿Que quiere editar?">
+               <VBox.margin>
+                  <Insets left="50.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <ComboBox fx:id="cbxTipoDedato" onAction="#OnActioncbxTipoDato" prefWidth="150.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="30.0" top="30.0" />
+               </VBox.margin>
+            </ComboBox>
+            <Label layoutX="60.0" layoutY="30.0" text="¿Cuál quiere editar?">
+               <VBox.margin>
+                  <Insets left="50.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <TableView fx:id="tableviewLugares" prefHeight="200.0" prefWidth="203.0">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="40.0" />
+               </VBox.margin>
+            </TableView>
          </children>
       </VBox>
    </children>
